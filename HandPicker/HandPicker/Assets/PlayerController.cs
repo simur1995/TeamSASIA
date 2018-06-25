@@ -46,16 +46,5 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Leftarrow detected!");
             transform.position += Vector3.down * Time.deltaTime * 10;
         }
-
-        //if (Input.GetAxis("Horizontal_RightStick") < 0 || Input.GetKey(KeyCode.Q))
-        //{
-        //    Debug.Log("Q detected!");
-        //    transform.Rotate(Vector3.forward * Time.deltaTime * 100);
-        //}
-        //if (Input.GetAxis("Horizontal_RightStick") > 0 || Input.GetKey(KeyCode.E))
-        //{
-        //    Debug.Log("E detected!");
-        //    transform.Rotate(Vector3.back * Time.deltaTime * 100);
-        //}
     }
 }

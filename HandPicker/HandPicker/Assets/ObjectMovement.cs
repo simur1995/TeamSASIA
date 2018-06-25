@@ -2,65 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectMovement : MonoBehaviour {
-<<<<<<< HEAD
+public class ObjectMovement : MonoBehaviour
+{
     public float RotateAmount;
     private GameObject chosenObject;
-    bool grabbing;
+    bool grabbing = false;
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
 
     }
 
-    // Update is called once per frame
-    void Update() {
-        if (Input.GetButton("Joystick 1 Button 0"))
+
+
+    private void OnTriggerStay(Collider collision)
+    {
+        chosenObject = collision.gameObject;
+        if (Input.GetKeyUp(KeyCode.Joystick1Button0))
         {
+            Debug.Log("pressed");
             Grab();
         }
-=======
-
-
-    private GameObject chosenObject;
-    bool grabbing;
-    
-	void Update () {
-        //grabbed object has same values as hand
->>>>>>> d455de77e817e7bd155c49a6db43ae8fabfd8231
         if (grabbing)
         {
             chosenObject.transform.position = transform.position;
+            if (Input.GetKey(KeyCode.Joystick1Button2))
+            {
+                chosenObject.transform.localScale += new Vector3(0.01f, 0.01f, 0.01f);
+            }
+            if (Input.GetKey(KeyCode.Joystick1Button3))
+            {
+                chosenObject.transform.localScale -= new Vector3(0.01f, 0.01f, 0.01f);
+            }
         }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        chosenObject = collision.gameObject;
     }
 
     void Grab()
     {
         grabbing = !grabbing;
     }
-
-    //void Rotate(bool rotate)
-    //{
-    //    chosenObject =
-    //}
-
-    //void ButtonMenu(string selection)
-    //{
-    //    switch (selection)
-    //    {
-    //        case "Joystick 1 Button 7":
-    //            Rotate(false);
-    //            break;
-    //        case "Joystick 1 Button 8":
-    //            Rotate(true);
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
 }
 
