@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectMovement : MonoBehaviour {
+
+
     private GameObject chosenObject;
     bool grabbing;
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
+    
 	void Update () {
+        //grabbed object has same values as hand
         if (grabbing)
         {
             chosenObject.transform.position = transform.position;
