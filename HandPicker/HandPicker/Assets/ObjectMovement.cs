@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectMovement : MonoBehaviour {
+<<<<<<< HEAD
     public float RotateAmount;
     private GameObject chosenObject;
     bool grabbing;
@@ -17,6 +18,15 @@ public class ObjectMovement : MonoBehaviour {
         {
             Grab();
         }
+=======
+
+
+    private GameObject chosenObject;
+    bool grabbing;
+    
+	void Update () {
+        //grabbed object has same values as hand
+>>>>>>> d455de77e817e7bd155c49a6db43ae8fabfd8231
         if (grabbing)
         {
             chosenObject.transform.position = transform.position;
