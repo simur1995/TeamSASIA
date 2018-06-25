@@ -3,6 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectMovement : MonoBehaviour {
+<<<<<<< HEAD
+    public float RotateAmount;
+    private GameObject chosenObject;
+    bool grabbing;
+    // Use this for initialization
+    void Start() {
+
+    }
+
+    // Update is called once per frame
+    void Update() {
+        if (Input.GetButton("Joystick 1 Button 0"))
+        {
+            Grab();
+        }
+=======
 
 
     private GameObject chosenObject;
@@ -10,11 +26,12 @@ public class ObjectMovement : MonoBehaviour {
     
 	void Update () {
         //grabbed object has same values as hand
+>>>>>>> d455de77e817e7bd155c49a6db43ae8fabfd8231
         if (grabbing)
         {
             chosenObject.transform.position = transform.position;
         }
-	}
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -25,4 +42,25 @@ public class ObjectMovement : MonoBehaviour {
     {
         grabbing = !grabbing;
     }
+
+    //void Rotate(bool rotate)
+    //{
+    //    chosenObject =
+    //}
+
+    //void ButtonMenu(string selection)
+    //{
+    //    switch (selection)
+    //    {
+    //        case "Joystick 1 Button 7":
+    //            Rotate(false);
+    //            break;
+    //        case "Joystick 1 Button 8":
+    //            Rotate(true);
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
 }
+
