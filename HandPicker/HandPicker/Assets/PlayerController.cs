@@ -4,8 +4,9 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
 
-    //public float speed;
-
+    float MOVESPEED = 5;
+    float ROTSPEED = 60;
+    Quaternion tempRotate;
     private Rigidbody rb;
 
     void Start()
@@ -15,47 +16,60 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetAxis("Horizontal") < 0 || Input.GetKey(KeyCode.LeftArrow))
+        Vector3 left = new Vector3(0, 0, Vector3.forward.z+90);
+        Vector3 right =  new Vector3(0, 0, Vector3.forward.z - 90);
+
+
+        if (Input.GetAxis("Horizontal") < 0 )
         {
             Debug.Log("Leftarrow detected!");
-            transform.position += Vector3.right * Time.deltaTime * 10;
-        }
 
+            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.left);
+        }
         if (Input.GetAxis("Horizontal") > 0 )
         {
             Debug.Log("Rightarrow detected!");
-            transform.position += Vector3.left * Time.deltaTime * 10;
+
+            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.right);
+        }
+
+        if (Input.GetAxis("Vertical") < 0 )
+        {
+            Debug.Log("Forward detected!");
+            //transform.position += Vector3.forward * Time.deltaTime * SPEED;
+
+            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.forward);
         }
         if (Input.GetAxis("Vertical") > 0 )
         {
-            Debug.Log("Rightarrow detected!");
-            transform.position += Vector3.forward * Time.deltaTime * 10;
+            Debug.Log("Back detected!");
+            //transform.position += Vector3.back * Time.deltaTime * SPEED;
+
+            transform.Translate(Time.deltaTime * MOVESPEED *Vector3.back);
         }
-        if (Input.GetAxis("Vertical") < 0 )
-        {
-            Debug.Log("Rightarrow detected!");
-            transform.position += Vector3.back * Time.deltaTime * 10;
-        }
+
         if (Input.GetKey(KeyCode.Joystick1Button4))
         {
             Debug.Log("Leftarrow detected!");
-            transform.position += Vector3.up * Time.deltaTime * 10;
+            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.down);
         }
-         if (Input.GetKey(KeyCode.Joystick1Button5))
+        if (Input.GetKey(KeyCode.Joystick1Button5))
         {
             Debug.Log("Leftarrow detected!");
-            transform.position += Vector3.down * Time.deltaTime * 10;
+            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.up);
         }
 
-        //if (Input.GetAxis("Horizontal_RightStick") < 0 || Input.GetKey(KeyCode.Q))
-        //{
-        //    Debug.Log("Q detected!");
-        //    transform.Rotate(Vector3.forward * Time.deltaTime * 100);
-        //}
-        //if (Input.GetAxis("Horizontal_RightStick") > 0 || Input.GetKey(KeyCode.E))
-        //{
-        //    Debug.Log("E detected!");
-        //    transform.Rotate(Vector3.back * Time.deltaTime * 100);
-        //}
+        if (Input.GetAxis("LeftHorizontal") < -0.5)
+        {
+            Debug.Log("LeftRotation detected!");
+
+            transform.Rotate(new Vector3(0, Time.deltaTime * -ROTSPEED, 0));
+        }
+        if (Input.GetAxis("LeftHorizontal") > 0.5)
+        {
+            Debug.Log("RightRotation detected!");
+
+            transform.Rotate(new Vector3(0, Time.deltaTime * ROTSPEED, 0));
+        }
     }
 }
