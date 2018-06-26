@@ -6,10 +6,8 @@ public class ObjectMovement : MonoBehaviour
 {
     private GameObject chosenObject;
     bool grabbing = false;
-    public KeyCode Enlarge, Shrink, RotateL, RotateR, MoveObject;
-    public float RotateSpeed, ScaleSpeed;
-    public int snapDegrees;
-    Quaternion tempRotate;
+    public KeyCode Scale, Rotate, MoveObject;
+    public float ScaleSpeed, SnapDegrees;
     // Use this for initialization
     void Start()
     {
@@ -22,32 +20,49 @@ public class ObjectMovement : MonoBehaviour
         {
             chosenObject.transform.position = transform.position;
 
-            if (Input.GetKey(Enlarge))
+            //if (Input.GetKey(Enlarge))
+            //{
+            //    chosenObject.transform.localScale += new Vector3(ScaleSpeed, ScaleSpeed, ScaleSpeed);
+            //}
+            //if (Input.GetKey(Shrink))
+            //{
+            //    chosenObject.transform.localScale -= new Vector3(ScaleSpeed, ScaleSpeed, ScaleSpeed);
+            //}
+            //if (Input.GetAxis("Right Trigger") < 0)
+            //{
+            //    /* tempRotate = chosenObject.transform.rotation;
+            //     tempRotate.y += RotateSpeed;
+            //     chosenObject.transform.rotation = tempRotate;*/
+
+            //    //snap to degrees
+            //    chosenObject.transform.Rotate(new Vector3(0, -snapDegrees, 0));
+            //}
+            //if (Input.GetAxis("Left Trigger") > 0)
+            //{
+            //    /* tempRotate = chosenObject.transform.rotation;
+            //     tempRotate.y -= RotateSpeed;
+            //     chosenObject.transform.rotation = tempRotate;*/
+
+            //    //snap to degrees
+            //    chosenObject.transform.Rotate(new Vector3(0, snapDegrees, 0));
+            //}
+            if(Input.GetKey(Scale) && Input.GetAxis("Right Trigger") > 0)
             {
                 chosenObject.transform.localScale += new Vector3(ScaleSpeed, ScaleSpeed, ScaleSpeed);
             }
-            if (Input.GetKey(Shrink))
+            if(Input.GetKey(Rotate) && Input.GetAxis("Right Trigger") > 0)
+            {
+                chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
+            }
+            if (Input.GetKey(Scale) && Input.GetAxis("Left Trigger") > 0)
             {
                 chosenObject.transform.localScale -= new Vector3(ScaleSpeed, ScaleSpeed, ScaleSpeed);
             }
-            if (Input.GetAxis("Right Trigger") < 0)
+            if(Input.GetKey(Rotate) && Input.GetAxis("Left Trigger") > 0)
             {
-                /* tempRotate = chosenObject.transform.rotation;
-                 tempRotate.y += RotateSpeed;
-                 chosenObject.transform.rotation = tempRotate;*/
-
-                //snap to degrees
-                chosenObject.transform.Rotate(new Vector3(0, -snapDegrees, 0));
+                chosenObject.transform.Rotate(new Vector3(0, -SnapDegrees, 0));
             }
-            if (Input.GetAxis("Left Trigger") > 0)
-            {
-                /* tempRotate = chosenObject.transform.rotation;
-                 tempRotate.y -= RotateSpeed;
-                 chosenObject.transform.rotation = tempRotate;*/
 
-                //snap to degrees
-                chosenObject.transform.Rotate(new Vector3(0, snapDegrees, 0));
-            }
         }
     }
 
