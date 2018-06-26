@@ -78,19 +78,28 @@ public class ObjectMovement : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        chosenObject = collision.gameObject;
-        while(chosenObject.GetComponent<NodeLink>() == null)
-        {
-            chosenObject = chosenObject.transform.parent.gameObject;
-        }
         if (Input.GetKeyUp(MoveObject))
         {
             Grab();
+        }
+        if (!grabbing)
+        {
+            chosenObject = collision.gameObject;
+            while (chosenObject.GetComponent<NodeLink>() == null)
+            {
+                chosenObject = chosenObject.transform.parent.gameObject;
+            }
         }
     }
 
     void Grab() //toggles if the hand is grabbing an object
     {
+        if (grabbing)
+        {
+            RaycastHit hitinfo;
+            Physics.Raycast(chosenObject.transform.position, Vector3.down, out hitinfo);
+            chosenObject.transform.position = hitinfo.point;
+        }
         grabbing = !grabbing;
     }
 }
