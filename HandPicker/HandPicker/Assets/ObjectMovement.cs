@@ -19,12 +19,15 @@ public class ObjectMovement : MonoBehaviour
     {
         if (grabbing)
         {
-
-            Debug.Log(chosenObject);
-
+        
             chosenObject.transform.position = transform.position;
-
-            chosenObject.GetComponent<NodeLink>().TargetPosition = transform.position;
+            
+            //chosenObject.GetComponent<NodeLink>().TargetPosition = transform.position;
+            //var comps = chosenObject.GetComponents(typeof());
+            //for (int i = 0; i < comps.Length; i++)
+            //{
+            //    Debug.Log(comps[i].ToString());
+            //}
 
 
             //if (Input.GetKey(Enlarge))
@@ -76,6 +79,10 @@ public class ObjectMovement : MonoBehaviour
     private void OnTriggerStay(Collider collision)
     {
         chosenObject = collision.gameObject;
+        while(chosenObject.GetComponent<NodeLink>() == null)
+        {
+            chosenObject = chosenObject.transform.parent.gameObject;
+        }
         if (Input.GetKeyUp(MoveObject))
         {
             Grab();
