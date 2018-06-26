@@ -30,7 +30,7 @@ public class ObjectMovement : MonoBehaviour
             {
                 chosenObject.transform.localScale -= new Vector3(ScaleSpeed, ScaleSpeed, ScaleSpeed);
             }
-            if (Input.GetAxis("Triggers") < 0)
+            if (Input.GetAxis("Right Trigger") < 0)
             {
                 /* tempRotate = chosenObject.transform.rotation;
                  tempRotate.y += RotateSpeed;
@@ -39,7 +39,7 @@ public class ObjectMovement : MonoBehaviour
                 //snap to degrees
                 chosenObject.transform.Rotate(new Vector3(0, -snapDegrees, 0));
             }
-            if (Input.GetAxis("Triggers") > 0)
+            if (Input.GetAxis("Left Trigger") > 0)
             {
                 /* tempRotate = chosenObject.transform.rotation;
                  tempRotate.y -= RotateSpeed;
