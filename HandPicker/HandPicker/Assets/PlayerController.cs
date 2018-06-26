@@ -24,13 +24,13 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Leftarrow detected!");
 
-            transform.position += Vector3.left * Time.deltaTime * MOVESPEED;
+            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.left);
         }
         if (Input.GetAxis("Horizontal") > 0 )
         {
             Debug.Log("Rightarrow detected!");
 
-            transform.position += Vector3.right * Time.deltaTime * MOVESPEED;
+            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.right);
         }
 
         if (Input.GetAxis("Vertical") < 0 )
