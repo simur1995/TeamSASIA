@@ -266,15 +266,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 441908014}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa14557391b854049a88161d6baa97c8, type: 3}
+  m_Script: {fileID: 11500000, guid: 89a4b7ac43905d544b84dc05f816b364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1527821047}
-  smoothSpeed: 0.125
-  cameraOffset: {x: 0, y: 0, z: 0}
-  cameraRotation: {x: 0, y: 0, z: 0, w: 0}
+  hand: {fileID: 1527821046}
+  offset: {x: 0, y: -5, z: 5}
 --- !u!1 &1339445326
 GameObject:
   m_ObjectHideFlags: 0
