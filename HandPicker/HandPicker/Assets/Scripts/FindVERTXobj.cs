@@ -34,7 +34,7 @@ public class FindVERTXobj : MonoBehaviour {
        List<GameObject> importedObjectsList = new List<GameObject>();
        for(int i = 0; i < numberOfImportedObjects; i++)
        {
-            importedObjectsList.Add(gameObject.transform.GetChild(i));
+            importedObjectsList.Add(gameObject.transform.GetChild(i).gameObject);
             var currentObject = gameObject.transform.GetChild(i);
             Debug.Log(currentObject.name);
        }
