@@ -5,12 +5,12 @@ using VertexUnityPlayer;
 
 public class FindVERTXobj : MonoBehaviour {
 
-    public GameObject sceneLink;
+    public GameObject currentImport;
     public int numberOfImportedObjects;
 
     void Start()
     {
-        sceneLink = gameObject;
+
         StartCoroutine(CountObjects());
 
         //Debug.Log(gameObject.GetComponent<NodeLink>());
@@ -21,16 +21,25 @@ public class FindVERTXobj : MonoBehaviour {
     {
         yield return new WaitForSeconds(5);
         numberOfImportedObjects = gameObject.transform.childCount - 2;
-    }
 
-    void AddRigidBody()
-    {
-       for(int i = 0; i < numberOfImportedObjects; i++)
+        for (int i = 0; i < numberOfImportedObjects; i++)
         {
-            var currentObject = sceneLink.transform.GetChild(i);
-            currentObject.tag = "EditOnly";
+            var currentObject = gameObject.transform.GetChild(i);
+            Debug.Log(currentObject.name);
         }
     }
+
+    void CreateGameObjects()
+    {
+       List<GameObject> importedObjectsList = new List<GameObject>();
+       for(int i = 0; i < numberOfImportedObjects; i++)
+       {
+            importedObjectsList.Add(gameObject.transform.GetChild(i));
+            var currentObject = gameObject.transform.GetChild(i);
+            Debug.Log(currentObject.name);
+       }
+    }
+
 
 
 }
