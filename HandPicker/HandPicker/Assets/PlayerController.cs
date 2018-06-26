@@ -20,29 +20,25 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Leftarrow detected!");
 
-            //transform.position += Vector3.left * Time.deltaTime * SPEED;
-
-            transform.Rotate(new Vector3(0, Time.deltaTime * -ROTSPEED, 0));
+            transform.position += Vector3.left * Time.deltaTime * MOVESPEED;
         }
         if (Input.GetAxis("Horizontal") > 0 )
         {
             Debug.Log("Rightarrow detected!");
 
-            //transform.position += Vector3.right * Time.deltaTime * SPEED;
-
-            transform.Rotate(new Vector3(0, Time.deltaTime * ROTSPEED, 0));
+            transform.position += Vector3.right * Time.deltaTime * MOVESPEED;
         }
 
-        if (Input.GetAxis("Vertical") > 0 )
+        if (Input.GetAxis("Vertical") < 0 )
         {
-            Debug.Log("Rightarrow detected!");
+            Debug.Log("Forward detected!");
             //transform.position += Vector3.forward * Time.deltaTime * SPEED;
 
             transform.Translate(Time.deltaTime * MOVESPEED * Vector3.forward);
         }
-        if (Input.GetAxis("Vertical") < 0 )
+        if (Input.GetAxis("Vertical") > 0 )
         {
-            Debug.Log("Rightarrow detected!");
+            Debug.Log("Back detected!");
             //transform.position += Vector3.back * Time.deltaTime * SPEED;
 
             transform.Translate(Time.deltaTime * MOVESPEED *Vector3.back);
@@ -51,13 +47,25 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Joystick1Button4))
         {
             Debug.Log("Leftarrow detected!");
-            transform.position += Vector3.up * Time.deltaTime * MOVESPEED;
+            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.left);
         }
-
-         if (Input.GetKey(KeyCode.Joystick1Button5))
+        if (Input.GetKey(KeyCode.Joystick1Button5))
         {
             Debug.Log("Leftarrow detected!");
-            transform.position += Vector3.down * Time.deltaTime * MOVESPEED;
+            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.right);
+        }
+
+        if (Input.GetAxis("LeftHorizontal") < 0)
+        {
+            Debug.Log("LeftRotation detected!");
+
+            transform.Rotate(new Vector3(0, Time.deltaTime * -ROTSPEED, 0));
+        }
+        if (Input.GetAxis("LeftHorizontal") > 0.2)
+        {
+            Debug.Log("RightRotation detected!");
+
+            transform.Rotate(new Vector3(0, Time.deltaTime * ROTSPEED, 0));
         }
     }
 }
