@@ -51,21 +51,21 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Joystick1Button4))
         {
             Debug.Log("Leftarrow detected!");
-            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.up);
+            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.down);
         }
         if (Input.GetKey(KeyCode.Joystick1Button5))
         {
             Debug.Log("Leftarrow detected!");
-            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.down);
+            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.up);
         }
 
-        if (Input.GetAxis("LeftHorizontal") < 0)
+        if (Input.GetAxis("LeftHorizontal") < -0.5)
         {
             Debug.Log("LeftRotation detected!");
 
             transform.Rotate(new Vector3(0, Time.deltaTime * -ROTSPEED, 0));
         }
-        if (Input.GetAxis("LeftHorizontal") > 0.2)
+        if (Input.GetAxis("LeftHorizontal") > 0.5)
         {
             Debug.Log("RightRotation detected!");
 
