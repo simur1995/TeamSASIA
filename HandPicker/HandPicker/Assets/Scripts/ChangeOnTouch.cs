@@ -19,6 +19,8 @@ public class ChangeOnTouch : MonoBehaviour {
         
         GameObject collidingObject = collision.gameObject;
 
+        Debug.Log("Collide!");
+
         if(collidingObject.tag == "Collidable" || collidingObject.tag == "Trash")
         {
             collidingObject.GetComponent<Renderer>().enabled = false;

@@ -11,7 +11,7 @@ public class FindVERTXobj : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {
         collidingObject = collision.gameObject;
-
+        Debug.Log("Collision!");
         if(collidingObject.tag != "Floor")
         {
             collidingObject.AddComponent<Rigidbody>();
