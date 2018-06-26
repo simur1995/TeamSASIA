@@ -16,6 +16,10 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        Vector3 left = new Vector3(0, 0, Vector3.forward.z+90);
+        Vector3 right =  new Vector3(0, 0, Vector3.forward.z - 90);
+
+
         if (Input.GetAxis("Horizontal") < 0 )
         {
             Debug.Log("Leftarrow detected!");
@@ -47,12 +51,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Joystick1Button4))
         {
             Debug.Log("Leftarrow detected!");
-            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.left);
+            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.up);
         }
         if (Input.GetKey(KeyCode.Joystick1Button5))
         {
             Debug.Log("Leftarrow detected!");
-            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.right);
+            transform.Translate(Time.deltaTime * MOVESPEED * Vector3.down);
         }
 
         if (Input.GetAxis("LeftHorizontal") < 0)

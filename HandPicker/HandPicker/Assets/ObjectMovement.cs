@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VertexUnityPlayer;
 
 public class ObjectMovement : MonoBehaviour
 {
@@ -14,11 +15,17 @@ public class ObjectMovement : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (grabbing)
         {
+
+            Debug.Log(chosenObject);
+
             chosenObject.transform.position = transform.position;
+
+            chosenObject.GetComponent<NodeLink>().TargetPosition = transform.position;
+
 
             //if (Input.GetKey(Enlarge))
             //{
@@ -46,7 +53,7 @@ public class ObjectMovement : MonoBehaviour
             //    //snap to degrees
             //    chosenObject.transform.Rotate(new Vector3(0, snapDegrees, 0));
             //}
-            if(Input.GetKey(Scale) && Input.GetAxis("Right Trigger") > 0)
+            if (Input.GetKey(Scale) && Input.GetAxis("Right Trigger") > 0)
             {
                 chosenObject.transform.localScale += new Vector3(ScaleSpeed, ScaleSpeed, ScaleSpeed);
             }
