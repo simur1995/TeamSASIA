@@ -54,7 +54,7 @@ public class ObjectMovement : MonoBehaviour
                 {
                     if (snapBool && !(Input.GetKey(Scale)))
                     {
-                        chosenObject.transform.Rotate(new Vector3(0, -45, 0));
+                        chosenObject.transform.Rotate(new Vector3(0, 45, 0));
                         snapBool = false;
                         
                     }
@@ -70,7 +70,7 @@ public class ObjectMovement : MonoBehaviour
                 {
                     if (snapBool && !(Input.GetKey(Scale)))
                     {
-                        chosenObject.transform.Rotate(new Vector3(0, 45, 0));
+                        chosenObject.transform.Rotate(new Vector3(0, -45, 0));
                         snapBool = false;
                         if (Input.GetAxis("Right Trigger") < 0.2)
                         {
