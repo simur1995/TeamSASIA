@@ -42,6 +42,8 @@ public class ObjectMovement : MonoBehaviour
             }
 
             //Rotation With Snap
+
+
             if (Input.GetAxis("Left Trigger") > 0)
             {
                 if (Input.GetKey(Rotate))
@@ -50,7 +52,7 @@ public class ObjectMovement : MonoBehaviour
                 }
                 else
                 {
-                    if (snapBool)
+                    if (snapBool && !(Input.GetKey(Scale)))
                     {
                         chosenObject.transform.Rotate(new Vector3(0, -45, 0));
                         snapBool = false;
@@ -66,7 +68,7 @@ public class ObjectMovement : MonoBehaviour
                 }
                 else
                 {
-                    if (snapBool)
+                    if (snapBool && !(Input.GetKey(Scale)))
                     {
                         chosenObject.transform.Rotate(new Vector3(0, 45, 0));
                         snapBool = false;
@@ -76,9 +78,7 @@ public class ObjectMovement : MonoBehaviour
                         }
                     }
                 }
-               
             }
-
         }
     }
 
@@ -111,17 +111,10 @@ public class ObjectMovement : MonoBehaviour
 
     void CanSnap()
     {
-        if (Input.GetAxis("Left Trigger") < 0.2)
-        {
-            snapBool = true;
-        }
-
-        if (Input.GetAxis("Right Trigger") < 0.2)
+        if (Input.GetAxis("Left Trigger") < 0.1 && Input.GetAxis("Right Trigger") < 0.1)
         {
             snapBool = true;
         }
     }
-
-
 }
 
