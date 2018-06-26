@@ -240,8 +240,8 @@ MonoBehaviour:
   Shrink: 110
   RotateL: 108
   RotateR: 107
-  Move: 32
-  RotateSpeed: 1
+  MoveObject: 32
+  RotateSpeed: 0.01
   ScaleSpeed: 0.01
 --- !u!23 &1404041281
 MeshRenderer:
