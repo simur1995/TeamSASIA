@@ -20,17 +20,13 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Leftarrow detected!");
 
-            //transform.position += Vector3.left * Time.deltaTime * SPEED;
-
-            transform.Rotate(new Vector3(0, Time.deltaTime * -ROTSPEED, 0));
+            transform.position += Vector3.left * Time.deltaTime * MOVESPEED;
         }
         if (Input.GetAxis("Horizontal") > 0 )
         {
             Debug.Log("Rightarrow detected!");
 
-            //transform.position += Vector3.right * Time.deltaTime * SPEED;
-
-            transform.Rotate(new Vector3(0, Time.deltaTime * ROTSPEED, 0));
+            transform.position += Vector3.right * Time.deltaTime * MOVESPEED;
         }
 
         if (Input.GetAxis("Vertical") > 0 )
@@ -53,11 +49,23 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Leftarrow detected!");
             transform.position += Vector3.up * Time.deltaTime * MOVESPEED;
         }
-
          if (Input.GetKey(KeyCode.Joystick1Button5))
         {
             Debug.Log("Leftarrow detected!");
             transform.position += Vector3.down * Time.deltaTime * MOVESPEED;
+        }
+
+        if (Input.GetAxis("LeftHorizontal") < 0)
+        {
+            Debug.Log("Leftarrow detected!");
+
+            transform.Rotate(new Vector3(0, Time.deltaTime * -ROTSPEED, 0));
+        }
+        if (Input.GetAxis("LeftHorizontal") > 0)
+        {
+            Debug.Log("Rightarrow detected!");
+
+            transform.Rotate(new Vector3(0, Time.deltaTime * ROTSPEED, 0));
         }
     }
 }
