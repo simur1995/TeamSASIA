@@ -10,7 +10,8 @@ public class ObjectMovement : MonoBehaviour
     public KeyCode Scale, Rotate, MoveObject;
     public float ScaleSpeed, SnapDegrees;
     bool snapBool = true;
-    //Shader previous;
+    Material previous;
+    public Material publicShader;
 
     
     private void Update()
@@ -31,7 +32,8 @@ public class ObjectMovement : MonoBehaviour
 
         if (grabbing)
         {
-            //chosenObject.GetComponent<Renderer>().material.shader = Shader.Find("Toon/Lit-Outline");
+            //chosenObject.GetComponent<MeshRenderer>().material.shader = Shader.Find("ToonLitOutline");
+            chosenObject.GetComponent<MeshRenderer>().material = publicShader;
             //position
             chosenObject.transform.position = transform.position;
             
@@ -109,6 +111,17 @@ public class ObjectMovement : MonoBehaviour
             {
                 chosenObject = chosenObject.transform.parent.gameObject;
             }
+            if (chosenObject != null)
+            {
+                if (chosenObject.GetComponent<MeshRenderer>() == null)
+                {
+                    chosenObject.AddComponent<MeshRenderer>();
+                }
+                else
+                {
+                    previous = chosenObject.GetComponent<MeshRenderer>().material;
+                }
+            }
         }
     }
 
@@ -119,10 +132,10 @@ public class ObjectMovement : MonoBehaviour
             RaycastHit hitinfo;
             Physics.Raycast(chosenObject.transform.position, Vector3.down, out hitinfo);
             chosenObject.transform.position = hitinfo.point;
-            //if (previous != null)
-            //{
-            //    chosenObject.GetComponent<Renderer>().material.shader = previous;
-            //}
+            if (previous != null)
+            {
+                chosenObject.GetComponent<MeshRenderer>().material = previous;
+            }
         }
         grabbing = !grabbing;
     }
