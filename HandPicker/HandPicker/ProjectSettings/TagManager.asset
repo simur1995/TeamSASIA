@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Rubbish
+  - Collidable
   layers:
   - Default
   - TransparentFX
