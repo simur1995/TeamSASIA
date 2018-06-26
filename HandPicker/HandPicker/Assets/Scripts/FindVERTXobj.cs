@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VertexUnityPlayer;
 
 public class FindVERTXobj : MonoBehaviour {
 
     public GameObject collidingObject;
     public Vector3 objectPosition;
 
-    private void OnTriggerEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         collidingObject = collision.gameObject;
 
@@ -17,7 +18,6 @@ public class FindVERTXobj : MonoBehaviour {
             collidingObject.GetComponent<Rigidbody>().isKinematic = true;
         }
 
-        
     }
 
 

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Rubbish
   - Collidable
+  - Floor
   layers:
   - Default
   - TransparentFX
