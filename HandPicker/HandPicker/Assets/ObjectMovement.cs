@@ -8,6 +8,7 @@ public class ObjectMovement : MonoBehaviour
     bool grabbing = false;
     public KeyCode Enlarge, Shrink, RotateL, RotateR, MoveObject;
     public float RotateSpeed, ScaleSpeed;
+    public int snapDegrees;
     Quaternion tempRotate;
     // Use this for initialization
     void Start()
@@ -29,17 +30,23 @@ public class ObjectMovement : MonoBehaviour
             {
                 chosenObject.transform.localScale -= new Vector3(ScaleSpeed, ScaleSpeed, ScaleSpeed);
             }
-            if (Input.GetKey(RotateL))
+            if (Input.GetKeyDown(RotateL))
             {
-                tempRotate = chosenObject.transform.rotation;
-                tempRotate.y += RotateSpeed;
-                chosenObject.transform.rotation = tempRotate;
+                /* tempRotate = chosenObject.transform.rotation;
+                 tempRotate.y += RotateSpeed;
+                 chosenObject.transform.rotation = tempRotate;*/
+
+                //snap to degrees
+                chosenObject.transform.Rotate(new Vector3(0, -snapDegrees, 0));
             }
-            if (Input.GetKey(RotateR))
+            if (Input.GetKeyDown(RotateR))
             {
-                tempRotate = chosenObject.transform.rotation;
-                tempRotate.y -= RotateSpeed;
-                chosenObject.transform.rotation = tempRotate;
+                /* tempRotate = chosenObject.transform.rotation;
+                 tempRotate.y -= RotateSpeed;
+                 chosenObject.transform.rotation = tempRotate;*/
+
+                //snap to degrees
+                chosenObject.transform.Rotate(new Vector3(0, snapDegrees, 0));
             }
         }
     }
