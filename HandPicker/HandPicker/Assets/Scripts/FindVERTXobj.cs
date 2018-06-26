@@ -5,19 +5,31 @@ using VertexUnityPlayer;
 
 public class FindVERTXobj : MonoBehaviour {
 
-    public GameObject collidingObject;
-    public Vector3 objectPosition;
+    public GameObject sceneLink;
+    public int numberOfImportedObjects;
 
-    private void OnCollisionEnter(Collision collision)
+    void Start()
     {
-        collidingObject = collision.gameObject;
-        Debug.Log("Collision!");
-        if(collidingObject.tag != "Floor")
-        {
-            collidingObject.AddComponent<Rigidbody>();
-            collidingObject.GetComponent<Rigidbody>().isKinematic = true;
-        }
+        sceneLink = gameObject;
+        StartCoroutine(CountObjects());
 
+        //Debug.Log(gameObject.GetComponent<NodeLink>());
+
+    }
+
+    IEnumerator CountObjects()
+    {
+        yield return new WaitForSeconds(5);
+        numberOfImportedObjects = gameObject.transform.childCount - 2;
+    }
+
+    void AddRigidBody()
+    {
+       for(int i = 0; i < numberOfImportedObjects; i++)
+        {
+            var currentObject = sceneLink.transform.GetChild(i);
+            currentObject.tag = "EditOnly";
+        }
     }
 
 
