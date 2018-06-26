@@ -78,7 +78,7 @@ public class ObjectMovement : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        if (Input.GetKeyUp(MoveObject))
+        if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly" )
         {
             Grab();
         }
