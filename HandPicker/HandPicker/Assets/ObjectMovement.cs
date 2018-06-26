@@ -9,68 +9,74 @@ public class ObjectMovement : MonoBehaviour
     bool grabbing = false;
     public KeyCode Scale, Rotate, MoveObject;
     public float ScaleSpeed, SnapDegrees;
-    // Use this for initialization
-    void Start()
-    {
+    bool snapBool = true;
 
-    }
-
+    
     private void Update()
     {
+        CanSnap();
+
         if (grabbing)
         {
-        
+            //position
             chosenObject.transform.position = transform.position;
             
-            //chosenObject.GetComponent<NodeLink>().TargetPosition = transform.position;
-            //var comps = chosenObject.GetComponents(typeof());
-            //for (int i = 0; i < comps.Length; i++)
-            //{
-            //    Debug.Log(comps[i].ToString());
-            //}
-
-
-            //if (Input.GetKey(Enlarge))
-            //{
-            //    chosenObject.transform.localScale += new Vector3(ScaleSpeed, ScaleSpeed, ScaleSpeed);
-            //}
-            //if (Input.GetKey(Shrink))
-            //{
-            //    chosenObject.transform.localScale -= new Vector3(ScaleSpeed, ScaleSpeed, ScaleSpeed);
-            //}
-            //if (Input.GetAxis("Right Trigger") < 0)
-            //{
-            //    /* tempRotate = chosenObject.transform.rotation;
-            //     tempRotate.y += RotateSpeed;
-            //     chosenObject.transform.rotation = tempRotate;*/
-
-            //    //snap to degrees
-            //    chosenObject.transform.Rotate(new Vector3(0, -snapDegrees, 0));
-            //}
-            //if (Input.GetAxis("Left Trigger") > 0)
-            //{
-            //    /* tempRotate = chosenObject.transform.rotation;
-            //     tempRotate.y -= RotateSpeed;
-            //     chosenObject.transform.rotation = tempRotate;*/
-
-            //    //snap to degrees
-            //    chosenObject.transform.Rotate(new Vector3(0, snapDegrees, 0));
-            //}
+            //Scaling
             if (Input.GetKey(Scale) && Input.GetAxis("Right Trigger") > 0)
             {
                 chosenObject.transform.localScale += new Vector3(ScaleSpeed, ScaleSpeed, ScaleSpeed);
-            }
-            if(Input.GetKey(Rotate) && Input.GetAxis("Right Trigger") > 0)
-            {
-                chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
             }
             if (Input.GetKey(Scale) && Input.GetAxis("Left Trigger") > 0)
             {
                 chosenObject.transform.localScale -= new Vector3(ScaleSpeed, ScaleSpeed, ScaleSpeed);
             }
+
+            //Rotation
             if(Input.GetKey(Rotate) && Input.GetAxis("Left Trigger") > 0)
             {
                 chosenObject.transform.Rotate(new Vector3(0, -SnapDegrees, 0));
+            }
+            if (Input.GetKey(Rotate) && Input.GetAxis("Right Trigger") > 0)
+            {
+                chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
+            }
+
+            //Rotation With Snap
+            if (Input.GetAxis("Left Trigger") > 0)
+            {
+                if (Input.GetKey(Rotate))
+                {
+                    chosenObject.transform.Rotate(new Vector3(0, -SnapDegrees, 0));
+                }
+                else
+                {
+                    if (snapBool)
+                    {
+                        chosenObject.transform.Rotate(new Vector3(0, -45, 0));
+                        snapBool = false;
+                        
+                    }
+                }
+            }
+            if (Input.GetAxis("Right Trigger") > 0)
+            {
+                if (Input.GetKey(Rotate))
+                {
+                    chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
+                }
+                else
+                {
+                    if (snapBool)
+                    {
+                        chosenObject.transform.Rotate(new Vector3(0, 45, 0));
+                        snapBool = false;
+                        if (Input.GetAxis("Right Trigger") < 0.2)
+                        {
+                            snapBool = true;
+                        }
+                    }
+                }
+               
             }
 
         }
@@ -102,5 +108,20 @@ public class ObjectMovement : MonoBehaviour
         }
         grabbing = !grabbing;
     }
+
+    void CanSnap()
+    {
+        if (Input.GetAxis("Left Trigger") < 0.2)
+        {
+            snapBool = true;
+        }
+
+        if (Input.GetAxis("Right Trigger") < 0.2)
+        {
+            snapBool = true;
+        }
+    }
+
+
 }
 

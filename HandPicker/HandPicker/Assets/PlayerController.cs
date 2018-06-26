@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
         Vector3 left = new Vector3(0, 0, Vector3.forward.z+90);
         Vector3 right =  new Vector3(0, 0, Vector3.forward.z - 90);
 
-
+        //side movement
         if (Input.GetAxis("Horizontal") < 0 )
         {
             Debug.Log("Leftarrow detected!");
@@ -48,17 +48,20 @@ public class PlayerController : MonoBehaviour
             transform.Translate(Time.deltaTime * MOVESPEED *Vector3.back);
         }
 
+
+        //updown
         if (Input.GetKey(KeyCode.Joystick1Button4))
         {
-            Debug.Log("Leftarrow detected!");
+            Debug.Log("down detected!");
             transform.Translate(Time.deltaTime * MOVESPEED * Vector3.down);
         }
         if (Input.GetKey(KeyCode.Joystick1Button5))
         {
-            Debug.Log("Leftarrow detected!");
+            Debug.Log("up detected!");
             transform.Translate(Time.deltaTime * MOVESPEED * Vector3.up);
         }
 
+        //Rotation
         if (Input.GetAxis("LeftHorizontal") < -0.5)
         {
             Debug.Log("LeftRotation detected!");
