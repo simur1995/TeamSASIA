@@ -10,28 +10,28 @@ public class ObjectMovement : MonoBehaviour
     public KeyCode Scale, Rotate, MoveObject;
     public float ScaleSpeed, SnapDegrees;
     bool snapBool = true;
-    Shader previous;
+    //Shader previous;
 
     
     private void Update()
     {
-        if (chosenObject != null)
-        {
-            if (chosenObject.GetComponent<Renderer>() == null)
-            {
-                chosenObject.AddComponent<Renderer>();
-            }
-            else
-            {
-                previous = chosenObject.GetComponent<Renderer>().material.shader;
-            }
-        }
+        //if (chosenObject != null)
+        //{
+        //    if (chosenObject.GetComponent<Renderer>() == null)
+        //    {
+        //        chosenObject.AddComponent<Renderer>();
+        //    }
+        //    else
+        //    {
+        //        previous = chosenObject.GetComponent<Renderer>().material.shader;
+        //    }
+        //}
 
         CanSnap();
 
         if (grabbing)
         {
-            chosenObject.GetComponent<Renderer>().material.shader = Shader.Find("Toon/Lit-Outline");
+            //chosenObject.GetComponent<Renderer>().material.shader = Shader.Find("Toon/Lit-Outline");
             //position
             chosenObject.transform.position = transform.position;
             
@@ -119,10 +119,10 @@ public class ObjectMovement : MonoBehaviour
             RaycastHit hitinfo;
             Physics.Raycast(chosenObject.transform.position, Vector3.down, out hitinfo);
             chosenObject.transform.position = hitinfo.point;
-            if (previous != null)
-            {
-                chosenObject.GetComponent<Renderer>().material.shader = previous;
-            }
+            //if (previous != null)
+            //{
+            //    chosenObject.GetComponent<Renderer>().material.shader = previous;
+            //}
         }
         grabbing = !grabbing;
     }
