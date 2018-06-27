@@ -162,6 +162,9 @@ public class ObjectMovement : MonoBehaviour
         RaycastHit hitinfo;
         Physics.Raycast(chosenObject.transform.position, Vector3.down, out hitinfo);
         chosenObject.transform.position = hitinfo.point;
+        float moveAmount = chosenObject.transform.position.y - chosenObject.GetComponentInChildren<Collider>().ClosestPointOnBounds(hitinfo.point).y;
+        Vector3 newPosition = new Vector3(hitinfo.point.x, chosenObject.transform.position.y - moveAmount, hitinfo.point.z);
+        chosenObject.transform.position = newPosition;
     }
 }
 
