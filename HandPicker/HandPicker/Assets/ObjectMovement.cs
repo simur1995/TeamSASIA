@@ -10,9 +10,10 @@ public class ObjectMovement : MonoBehaviour
     public KeyCode Scale, Rotate, MoveObject;
     public float ScaleSpeed, SnapDegrees;
     bool snapBool = true;
-    Material previous;
     public Material publicMaterial;
     private Material[] matArray = new Material[2];
+    private Renderer[] chosenRenderer;
+    Material[] previous;
     Transform initialPosition;
     Vector3 worldPosition;
 
@@ -109,25 +110,43 @@ public class ObjectMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision2)
     {
-        Debug.Log(collision2);
-        chosenRenderer = collision2.GetComponentInChildren<MeshRenderer>();
-        previous = chosenRenderer.material;
-        Debug.Log("2");
-        publicMaterial.color = previous.color;
-        matArray[1] = previous;
-        matArray[0] = publicMaterial;
-        Debug.Log("3");
-        chosenRenderer.materials = matArray;
+        
+        if (collision2.name == "Plane")
+        {
+            return;
+        }
         initialPosition = collision2.transform;
         worldPosition = collision2.transform.gameObject.transform.position;
-        Debug.Log("4");
+
+        //highlight
+        var tempGO = collision2.gameObject;
+        while(tempGO.transform.parent.name != "SceneLink")
+        {
+            tempGO = tempGO.transform.parent.gameObject;
+        }
+        chosenRenderer = tempGO.GetComponentsInChildren<MeshRenderer>();
+        if(chosenRenderer[0].material != publicMaterial)
+        {
+            previous = new Material[chosenRenderer.Length];
+            for (int i = 0; i < chosenRenderer.Length; i++)
+            {
+                previous[i] = chosenRenderer[i].material;
+            }
+            for (int i = 0; i < previous.Length; i++)
+            {
+                publicMaterial.color = previous[i].color;
+                chosenRenderer[i].material = publicMaterial;
+            }
+        }
         //Debug.Log((initialPosition.transform.position).ToString());
     }
 
     private void OnTriggerExit(Collider other)
     {
-        matArray[0] = previous;
-        chosenRenderer.materials = matArray;
+        for (int i = 0; i < chosenRenderer.Length; i++)
+        {
+            chosenRenderer[i].material = previous[i];
+        }
     }
 
     private void OnTriggerStay(Collider collision)
@@ -139,7 +158,7 @@ public class ObjectMovement : MonoBehaviour
         if (!grabbing)
         {
             chosenObject = collision.gameObject;
-            while (chosenObject.GetComponent<NodeLink>() == null)
+            while (chosenObject.GetComponent<NodeLink>() == null && chosenObject.tag != "EditorOnly")
             {
                 chosenObject = chosenObject.transform.parent.gameObject;
             }
@@ -151,7 +170,6 @@ public class ObjectMovement : MonoBehaviour
         if (grabbing && !Input.GetKey(KeyCode.Joystick1Button6))
         {
             raycast();
-
         }
         grabbing = !grabbing;
     }
