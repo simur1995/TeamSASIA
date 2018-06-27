@@ -6,7 +6,7 @@ using VertexUnityPlayer;
 public class ObjectMovement : MonoBehaviour
 {
     private GameObject chosenObject;
-    bool grabbing = false;
+    static public bool grabbing = false;
     public KeyCode Scale, Rotate, MoveObject;
     public float ScaleSpeed, SnapDegrees;
     bool snapBool = true;
