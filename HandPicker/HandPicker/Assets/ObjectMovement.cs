@@ -59,14 +59,14 @@ public class ObjectMovement : MonoBehaviour
                 chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
             }
             //Rotation Z axis
-            //if (Input.GetKey(KeyCode.Joystick1Button2) && Input.GetAxis("Left Trigger") > 0)
-            //{
-            //    chosenObject.transform.Rotate(new Vector3(0,0 , -SnapDegrees));
-            //}
-            //if (Input.GetKey(KeyCode.Joystick1Button2) && Input.GetAxis("Right Trigger") > 0)
-            //{
-            //    chosenObject.transform.Rotate(new Vector3(0,0 , SnapDegrees));
-            //}
+            if (Input.GetKey(KeyCode.Joystick1Button2) && Input.GetAxis("Left Trigger") > 0)
+            {
+                chosenObject.transform.Rotate(new Vector3(0, 0, -SnapDegrees));
+            }
+            if (Input.GetKey(KeyCode.Joystick1Button2) && Input.GetAxis("Right Trigger") > 0)
+            {
+                chosenObject.transform.Rotate(new Vector3(0, 0, SnapDegrees));
+            }
 
             //Rotation With Snap
 
@@ -135,11 +135,11 @@ public class ObjectMovement : MonoBehaviour
             //while(chosenObject.GetComponent<MeshRenderer>() == null)
             //{
             //}
-            chosenRenderer = chosenObject.GetComponentInChildren<MeshRenderer>();
-            previous = chosenRenderer.material;
-            matArray[0] = previous;
-            matArray[1] = publicShader;
-            chosenRenderer.materials = matArray;
+            //chosenRenderer = chosenObject.GetComponentInChildren<MeshRenderer>();
+            //previous = chosenRenderer.material;
+            //matArray[0] = previous;
+            //matArray[1] = publicShader;
+            //chosenRenderer.materials = matArray;
             //if (chosenObject != null)
             //{
             //    if (chosenObject.GetComponent<MeshRenderer>() == null)
@@ -158,13 +158,15 @@ public class ObjectMovement : MonoBehaviour
     {
         if (grabbing)
         {
+            //if (previous != null)
+            //{
+            //    matArray[1] = previous;
+            //    chosenObject.GetComponent<MeshRenderer>().materials = matArray;
+            //}
             RaycastHit hitinfo;
             Physics.Raycast(chosenObject.transform.position, Vector3.down, out hitinfo);
             chosenObject.transform.position = hitinfo.point;
-            if (previous != null)
-            {
-                chosenObject.GetComponent<MeshRenderer>().material = previous;
-            }
+            
         }
         grabbing = !grabbing;
     }
