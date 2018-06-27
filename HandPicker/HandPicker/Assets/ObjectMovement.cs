@@ -100,14 +100,15 @@ public class ObjectMovement : MonoBehaviour
     {
         chosenRenderer = collision2.GetComponentInChildren<MeshRenderer>();
         previous = chosenRenderer.material;
-        matArray[0] = previous;
-        matArray[1] = publicMaterial;
+        publicMaterial.color = previous.color;
+        matArray[1] = previous;
+        matArray[0] = publicMaterial;
         chosenRenderer.materials = matArray;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        matArray[1] = previous;
+        matArray[0] = previous;
         chosenRenderer.materials = matArray;
     }
 
