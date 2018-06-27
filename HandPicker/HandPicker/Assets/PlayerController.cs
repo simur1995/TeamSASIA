@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
             transform.Rotate(new Vector3(0, Time.deltaTime * -ROTSPEED, 0));
         }
-        if (Input.GetAxis("LeftHorizontal") > 0.5)
+        if (Input.GetAxis("LeftHorizontal") >0.5)
         {
             Debug.Log("RightRotation detected!");
 
