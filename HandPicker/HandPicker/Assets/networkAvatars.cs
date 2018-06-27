@@ -18,6 +18,7 @@ public class networkAvatars : MonoBehaviour {
     void Update () {
         if (numberOfPlayers != viewpoints.transform.childCount)
         {
+            Debug.Log("IIIINNNNN");
             numberOfPlayers = viewpoints.transform.childCount;
             var user = Instantiate(avatar);
             user.transform.parent = viewpoints.transform.GetChild(numberOfPlayers - 1);
