@@ -13,6 +13,8 @@ public class FindVERTXobj : MonoBehaviour {
 
         StartCoroutine(CountObjects());
 
+        CreateGameObjects();
+
         //Debug.Log(gameObject.GetComponent<NodeLink>());
 
     }
@@ -37,6 +39,11 @@ public class FindVERTXobj : MonoBehaviour {
             importedObjectsList.Add(gameObject.transform.GetChild(i).gameObject);
             var currentObject = gameObject.transform.GetChild(i);
             Debug.Log(currentObject.name);
+       }
+
+       foreach(GameObject currentObject in importedObjectsList)
+       {
+            Debug.Log("1");
        }
     }
 

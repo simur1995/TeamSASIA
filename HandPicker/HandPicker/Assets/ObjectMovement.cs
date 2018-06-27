@@ -13,7 +13,6 @@ public class ObjectMovement : MonoBehaviour
     Material previous;
     public Material publicMaterial;
     private Material[] matArray = new Material[2];
-    private Renderer chosenRenderer;
     Transform initialPosition;
     Vector3 worldPosition;
 
