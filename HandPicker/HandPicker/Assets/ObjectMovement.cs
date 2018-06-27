@@ -15,6 +15,7 @@ public class ObjectMovement : MonoBehaviour
     private Material[] matArray = new Material[2];
     private Renderer chosenRenderer;
     Transform initialPosition;
+    Vector3 worldPosition;
 
     private void Update()
     {
@@ -27,15 +28,18 @@ public class ObjectMovement : MonoBehaviour
             {
                 chosenObject.transform.localRotation = initialPosition.localRotation;
                 chosenObject.transform.localScale = initialPosition.localScale;
-
+                
+                chosenObject.transform.position = worldPosition;
+                //chosenObject.transform.gameObject.transform.position = worldPosition;
                 Debug.Log("Back pressed!");
                 Grab();
-                chosenObject.transform.localPosition = initialPosition.localPosition;
 
+                return;
             }
             //position
             chosenObject.transform.position = transform.position;
-
+            //Debug.Log((initialPosition.transform.position).ToString());
+            Debug.Log(worldPosition.ToString());
             //Scaling
             if (Input.GetKey(Scale) && Input.GetAxis("Right Trigger") > 0)
             {
@@ -115,6 +119,8 @@ public class ObjectMovement : MonoBehaviour
         matArray[0] = publicMaterial;
         chosenRenderer.materials = matArray;
         initialPosition = collision2.transform;
+        worldPosition = collision2.transform.gameObject.transform.position;
+        //Debug.Log((initialPosition.transform.position).ToString());
     }
 
     private void OnTriggerExit(Collider other)
