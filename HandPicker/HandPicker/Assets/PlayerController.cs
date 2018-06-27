@@ -20,27 +20,27 @@ public class PlayerController : MonoBehaviour
         Vector3 right =  new Vector3(0, 0, Vector3.forward.z - 90);
 
         //side movement
-        if (Input.GetAxis("Horizontal") < 0 )
+        if (Input.GetAxis("Horizontal") < -0.5 )
         {
             Debug.Log("Leftarrow detected!");
 
             transform.Translate(Time.deltaTime * MOVESPEED * Vector3.left);
         }
-        if (Input.GetAxis("Horizontal") > 0 )
+        if (Input.GetAxis("Horizontal") > 0.5 )
         {
             Debug.Log("Rightarrow detected!");
 
             transform.Translate(Time.deltaTime * MOVESPEED * Vector3.right);
         }
 
-        if (Input.GetAxis("Vertical") < 0 )
+        if (Input.GetAxis("Vertical") < -0.5 )
         {
             Debug.Log("Forward detected!");
             //transform.position += Vector3.forward * Time.deltaTime * SPEED;
 
             transform.Translate(Time.deltaTime * MOVESPEED * Vector3.forward);
         }
-        if (Input.GetAxis("Vertical") > 0 )
+        if (Input.GetAxis("Vertical") > 0.5 )
         {
             Debug.Log("Back detected!");
             //transform.position += Vector3.back * Time.deltaTime * SPEED;
