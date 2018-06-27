@@ -56,8 +56,6 @@ public class ObjectMovement : MonoBehaviour
             {
                 chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
             }
-<<<<<<< HEAD
-=======
             //Rotation Z axis
             if (Input.GetKey(KeyCode.Joystick1Button2) && Input.GetAxis("Left Trigger") > 0)
             {
@@ -67,7 +65,6 @@ public class ObjectMovement : MonoBehaviour
             {
                 chosenObject.transform.Rotate(new Vector3(0, 0, SnapDegrees));
             }
->>>>>>> 974cec6c99b82c38487805de0b141399609fdd43
 
             //Rotation With Snap
 
@@ -123,7 +120,6 @@ public class ObjectMovement : MonoBehaviour
             {
                 chosenObject = chosenObject.transform.parent.gameObject;
             }
-<<<<<<< HEAD
             if (chosenObject != null)
             {
                 if (chosenObject.GetComponent<MeshRenderer>() == null)
@@ -135,7 +131,6 @@ public class ObjectMovement : MonoBehaviour
                     previous = chosenObject.GetComponent<MeshRenderer>().material;
                 }
             }
-=======
             //while(chosenObject.GetComponent<MeshRenderer>() == null)
             //{
             //}
@@ -155,7 +150,6 @@ public class ObjectMovement : MonoBehaviour
             //        previous = chosenObject.GetComponent<MeshRenderer>().material;
             //    }
             //}
->>>>>>> 974cec6c99b82c38487805de0b141399609fdd43
         }
     }
 
