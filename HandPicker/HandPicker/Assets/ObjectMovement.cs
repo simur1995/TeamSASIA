@@ -12,6 +12,8 @@ public class ObjectMovement : MonoBehaviour
     bool snapBool = true;
     Material previous;
     public Material publicShader;
+    Material[] matArray = new Material[2];
+    Renderer chosenRenderer;
 
     
     private void Update()
@@ -33,7 +35,7 @@ public class ObjectMovement : MonoBehaviour
         if (grabbing)
         {
             //chosenObject.GetComponent<MeshRenderer>().material.shader = Shader.Find("ToonLitOutline");
-            chosenObject.GetComponent<MeshRenderer>().material = publicShader;
+            //chosenObject.GetComponent<MeshRenderer>().material = publicShader;
             //position
             chosenObject.transform.position = transform.position;
             
@@ -111,17 +113,25 @@ public class ObjectMovement : MonoBehaviour
             {
                 chosenObject = chosenObject.transform.parent.gameObject;
             }
-            if (chosenObject != null)
-            {
-                if (chosenObject.GetComponent<MeshRenderer>() == null)
-                {
-                    chosenObject.AddComponent<MeshRenderer>();
-                }
-                else
-                {
-                    previous = chosenObject.GetComponent<MeshRenderer>().material;
-                }
-            }
+            //while(chosenObject.GetComponent<MeshRenderer>() == null)
+            //{
+            //}
+            chosenRenderer = chosenObject.GetComponentInChildren<MeshRenderer>();
+            previous = chosenRenderer.material;
+            matArray[0] = previous;
+            matArray[1] = publicShader;
+            chosenRenderer.materials = matArray;
+            //if (chosenObject != null)
+            //{
+            //    if (chosenObject.GetComponent<MeshRenderer>() == null)
+            //    {
+            //        chosenObject.AddComponent<MeshRenderer>();
+            //    }
+            //    else
+            //    {
+            //        previous = chosenObject.GetComponent<MeshRenderer>().material;
+            //    }
+            //}
         }
     }
 
