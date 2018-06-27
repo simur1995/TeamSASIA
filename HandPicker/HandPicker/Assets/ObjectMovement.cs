@@ -24,12 +24,11 @@ public class ObjectMovement : MonoBehaviour
 
         if (grabbing)
         {
-            if (Input.GetKey(KeyCode.Joystick1Button6))
+            if (Input.GetKeyDown(KeyCode.Joystick1Button6))
             {
                 chosenObject.transform.localRotation = initialPosition.localRotation;
                 chosenObject.transform.localScale = initialPosition.localScale;
                 chosenObject.transform.position = worldPosition;
-                //chosenObject.transform.gameObject.transform.position = worldPosition;
 
                 Debug.Log("Back pressed!");
                 Grab();
@@ -38,8 +37,6 @@ public class ObjectMovement : MonoBehaviour
             }
             //position
             chosenObject.transform.position = transform.position;
-            //Debug.Log((initialPosition.transform.position).ToString());
-            Debug.Log(worldPosition.ToString());
 
             //Scaling
             if (Input.GetKey(Scale) && Input.GetAxis("Right Trigger") > 0)
