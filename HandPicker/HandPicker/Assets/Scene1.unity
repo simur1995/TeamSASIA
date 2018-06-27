@@ -255,6 +255,7 @@ GameObject:
   - component: {fileID: 1058937517}
   - component: {fileID: 1058937516}
   - component: {fileID: 1058937519}
+  - component: {fileID: 1058937520}
   m_Layer: 0
   m_Name: SceneLink
   m_TagString: Untagged
@@ -335,6 +336,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatar: {fileID: 100048, guid: 9213ae4fe4c62da4d932e325cd8dff99, type: 3}
+--- !u!114 &1058937520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1058937515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee74503f8f46c2b49a6be1f58eeae9f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1404041276
 GameObject:
   m_ObjectHideFlags: 0
