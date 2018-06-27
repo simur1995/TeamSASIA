@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class networkAvatars : MonoBehaviour {
+public class networkAvatars : MonoBehaviour
+{
 
     public GameObject viewpoints;
     public GameObject avatar;
@@ -25,3 +26,4 @@ public class networkAvatars : MonoBehaviour {
         }
     }
 }
+

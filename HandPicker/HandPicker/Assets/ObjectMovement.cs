@@ -10,9 +10,10 @@ public class ObjectMovement : MonoBehaviour
     public KeyCode Scale, Rotate, MoveObject;
     public float ScaleSpeed, SnapDegrees;
     bool snapBool = true;
-    Material previous;
     public Material publicMaterial;
     private Material[] matArray = new Material[2];
+    private Renderer[] chosenRenderer;
+    Material[] previous;
     Transform initialPosition;
     Vector3 worldPosition;
 
@@ -20,9 +21,14 @@ public class ObjectMovement : MonoBehaviour
     {
 
         CanSnap();
+        if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly")
+        {
+            Grab();
+        }
 
         if (grabbing)
         {
+
             if (Input.GetKeyDown(KeyCode.Joystick1Button6))
             {
                 chosenObject.transform.localRotation = initialPosition.localRotation;
@@ -109,37 +115,56 @@ public class ObjectMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision2)
     {
-        Debug.Log(collision2);
-        chosenRenderer = collision2.GetComponentInChildren<MeshRenderer>();
-        previous = chosenRenderer.material;
-        Debug.Log("2");
-        publicMaterial.color = previous.color;
-        matArray[1] = previous;
-        matArray[0] = publicMaterial;
-        Debug.Log("3");
-        chosenRenderer.materials = matArray;
+        
+        if (collision2.name == "Plane")
+        {
+            return;
+        }
         initialPosition = collision2.transform;
         worldPosition = collision2.transform.gameObject.transform.position;
-        Debug.Log("4");
+
+        //highlight
+        var tempGO = collision2.gameObject;
+        while(tempGO.transform.parent.name != "SceneLink")
+        {
+            tempGO = tempGO.transform.parent.gameObject;
+        }
+        chosenRenderer = tempGO.GetComponentsInChildren<MeshRenderer>();
+        if(chosenRenderer[0].sharedMaterial != publicMaterial)
+        {
+            previous = new Material[chosenRenderer.Length];
+            for (int i = 0; i < chosenRenderer.Length; i++)
+            {
+                previous[i] = chosenRenderer[i].sharedMaterial;
+            }
+            for (int i = 0; i < previous.Length; i++)
+            {
+                publicMaterial.color = previous[i].color;
+                chosenRenderer[i].sharedMaterial = publicMaterial;
+            }
+        }
         //Debug.Log((initialPosition.transform.position).ToString());
     }
 
     private void OnTriggerExit(Collider other)
     {
-        matArray[0] = previous;
-        chosenRenderer.materials = matArray;
+        Debug.Log("Exited Trigger");
+        for (int i = 0; i < chosenRenderer.Length; i++)
+        {
+            chosenRenderer[i].sharedMaterial = previous[i];
+        }
     }
 
     private void OnTriggerStay(Collider collision)
     {
-        if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly")
-        {
-            Grab();
-        }
+        //if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly")
+        //{
+        //    Grab();
+        //}
         if (!grabbing)
         {
             chosenObject = collision.gameObject;
-            while (chosenObject.GetComponent<NodeLink>() == null)
+            while (chosenObject.GetComponent<NodeLink>() == null && chosenObject.tag != "EditorOnly")
             {
                 chosenObject = chosenObject.transform.parent.gameObject;
             }
@@ -150,8 +175,7 @@ public class ObjectMovement : MonoBehaviour
     {
         if (grabbing && !Input.GetKey(KeyCode.Joystick1Button6))
         {
-            raycast();
-
+            PlaceOnFloor();
         }
         grabbing = !grabbing;
     }
@@ -164,14 +188,21 @@ public class ObjectMovement : MonoBehaviour
         }
     }
 
-    void raycast()
+    void PlaceOnFloor()
     {
         RaycastHit hitinfo;
-        Physics.Raycast(chosenObject.transform.position, Vector3.down, out hitinfo);
-        chosenObject.transform.position = hitinfo.point;
-        float moveAmount = chosenObject.transform.position.y - chosenObject.GetComponentInChildren<Collider>().ClosestPointOnBounds(hitinfo.point).y;
-        Vector3 newPosition = new Vector3(hitinfo.point.x, chosenObject.transform.position.y - moveAmount, hitinfo.point.z);
-        chosenObject.transform.position = newPosition;
+        if (Physics.Raycast(new Ray(chosenObject.transform.position, Vector3.down), out hitinfo, float.MaxValue, 1 << LayerMask.NameToLayer("Floor")))
+        {
+
+            chosenObject.transform.position = hitinfo.point;
+            float moveAmount = chosenObject.transform.position.y - chosenObject.GetComponentInChildren<Collider>().ClosestPointOnBounds(hitinfo.point).y;
+            Vector3 newPosition = new Vector3(hitinfo.point.x, chosenObject.transform.position.y - moveAmount, hitinfo.point.z);
+            chosenObject.transform.position = newPosition;
+        }
+        else
+        {
+            Debug.Log("Couldn't find the floor");
+        }
     }
 }
 
