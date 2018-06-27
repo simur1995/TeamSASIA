@@ -14,8 +14,14 @@ public class ObjectMovement : MonoBehaviour
     public Material publicMaterial;
     private Material[] matArray = new Material[2];
     private Renderer chosenRenderer;
+    Animator anim;
 
-    
+    private void Start()
+    {
+        //anim = GetComponent<Animator>();
+    }
+
+
     private void Update()
     {
 
@@ -48,8 +54,6 @@ public class ObjectMovement : MonoBehaviour
            
 
             //Rotation With Snap
-
-
             if (Input.GetAxis("Left Trigger") > 0)
             {
                 if (Input.GetKey(KeyCode.Joystick1Button2))
@@ -62,6 +66,7 @@ public class ObjectMovement : MonoBehaviour
                 }
                 else
                 {
+                    //Z Rotation
                     if (snapBool && !(Input.GetKey(Scale)) && !(Input.GetKey(KeyCode.Joystick1Button2)))
                     {
                         chosenObject.transform.Rotate(new Vector3(0, 45, 0));
@@ -82,6 +87,7 @@ public class ObjectMovement : MonoBehaviour
                 }
                 else
                 {
+                    //Z Rotation
                     if (snapBool && !(Input.GetKey(Scale)) && !(Input.GetKey(KeyCode.Joystick1Button2)))
                     {
                         chosenObject.transform.Rotate(new Vector3(0, -45, 0));
@@ -135,7 +141,12 @@ public class ObjectMovement : MonoBehaviour
             RaycastHit hitinfo;
             Physics.Raycast(chosenObject.transform.position, Vector3.down, out hitinfo);
             chosenObject.transform.position = hitinfo.point;
-            
+
+            //anim.SetBool("IsGrabbing", false);
+        }
+        else
+        {
+            //anim.SetBool("IsGrabbing", true);
         }
         grabbing = !grabbing;
     }
