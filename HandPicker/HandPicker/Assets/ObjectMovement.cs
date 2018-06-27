@@ -62,18 +62,13 @@ public class ObjectMovement : MonoBehaviour
 
             if (Input.GetAxis("Left Trigger") > 0)
             {
-                if (Input.GetKey(KeyCode.Joystick1Button2))
-                {
-                    chosenObject.transform.Rotate(new Vector3(0, 0, -SnapDegrees));
-                }
-                else
                 if (Input.GetKey(Rotate))
                 {
                     chosenObject.transform.Rotate(new Vector3(0, -SnapDegrees, 0));
                 }
                 else
                 {
-                    if (snapBool && !(Input.GetKey(Scale)) && !(Input.GetKey(KeyCode.Joystick1Button2)))
+                    if (snapBool && !(Input.GetKey(Scale)))
                     {
                         chosenObject.transform.Rotate(new Vector3(0, 45, 0));
                         snapBool = false;
@@ -83,17 +78,13 @@ public class ObjectMovement : MonoBehaviour
             }
             if (Input.GetAxis("Right Trigger") > 0)
             {
-                if (Input.GetKey(KeyCode.Joystick1Button2))
-                {
-                    chosenObject.transform.Rotate(new Vector3(0, 0, SnapDegrees));
-                }
                 if (Input.GetKey(Rotate))
                 {
                     chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
                 }
                 else
                 {
-                    if (snapBool && !(Input.GetKey(Scale)) && !(Input.GetKey(KeyCode.Joystick1Button2)))
+                    if (snapBool && !(Input.GetKey(Scale)))
                     {
                         chosenObject.transform.Rotate(new Vector3(0, -45, 0));
                         snapBool = false;
