@@ -680,7 +680,10 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 4e4fa6d... change
 =======
 >>>>>>> parent of 4e4fa6d... change
 --- !u!1001 &1724050445
@@ -735,8 +738,12 @@ Prefab:
       value: -7.5
       objectReference: {fileID: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_RemovedComponents:
     - {fileID: 114011136349428632, guid: 0bba166ff7f6cd544a7a15d1c6bef891, type: 2}
+=======
+    m_RemovedComponents: []
+>>>>>>> parent of 4e4fa6d... change
 =======
     m_RemovedComponents: []
 >>>>>>> parent of 4e4fa6d... change
@@ -753,7 +760,10 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 1724050445}
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 7663ed5b8bd7be4a333652e37f1249be3f84ec57
+=======
+>>>>>>> parent of 4e4fa6d... change
 =======
 >>>>>>> parent of 4e4fa6d... change
 --- !u!1 &1814470567
