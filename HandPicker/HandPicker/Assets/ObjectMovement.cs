@@ -14,13 +14,7 @@ public class ObjectMovement : MonoBehaviour
     public Material publicMaterial;
     private Material[] matArray = new Material[2];
     private Renderer chosenRenderer;
-    Animator anim;
-
-    private void Start()
-    {
-        //anim = GetComponent<Animator>();
-    }
-
+    Transform initialPosition;
 
     private void Update()
     {
@@ -29,9 +23,19 @@ public class ObjectMovement : MonoBehaviour
 
         if (grabbing)
         {
+            if (Input.GetKey(KeyCode.Joystick1Button6))
+            {
+                chosenObject.transform.localRotation = initialPosition.localRotation;
+                chosenObject.transform.localScale = initialPosition.localScale;
+
+                Debug.Log("Back pressed!");
+                Grab();
+                chosenObject.transform.localPosition = initialPosition.localPosition;
+
+            }
             //position
             chosenObject.transform.position = transform.position;
-            
+
             //Scaling
             if (Input.GetKey(Scale) && Input.GetAxis("Right Trigger") > 0)
             {
@@ -43,7 +47,7 @@ public class ObjectMovement : MonoBehaviour
             }
 
             //Rotation
-            if(Input.GetKey(Rotate) && Input.GetAxis("Left Trigger") > 0)
+            if (Input.GetKey(Rotate) && Input.GetAxis("Left Trigger") > 0)
             {
                 chosenObject.transform.Rotate(new Vector3(0, -SnapDegrees, 0));
             }
@@ -51,9 +55,11 @@ public class ObjectMovement : MonoBehaviour
             {
                 chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
             }
-           
+
 
             //Rotation With Snap
+
+
             if (Input.GetAxis("Left Trigger") > 0)
             {
                 if (Input.GetKey(KeyCode.Joystick1Button2))
@@ -66,12 +72,11 @@ public class ObjectMovement : MonoBehaviour
                 }
                 else
                 {
-                    //Z Rotation
                     if (snapBool && !(Input.GetKey(Scale)) && !(Input.GetKey(KeyCode.Joystick1Button2)))
                     {
                         chosenObject.transform.Rotate(new Vector3(0, 45, 0));
                         snapBool = false;
-                        
+
                     }
                 }
             }
@@ -87,7 +92,6 @@ public class ObjectMovement : MonoBehaviour
                 }
                 else
                 {
-                    //Z Rotation
                     if (snapBool && !(Input.GetKey(Scale)) && !(Input.GetKey(KeyCode.Joystick1Button2)))
                     {
                         chosenObject.transform.Rotate(new Vector3(0, -45, 0));
@@ -110,6 +114,7 @@ public class ObjectMovement : MonoBehaviour
         matArray[1] = previous;
         matArray[0] = publicMaterial;
         chosenRenderer.materials = matArray;
+        initialPosition = collision2.transform;
     }
 
     private void OnTriggerExit(Collider other)
@@ -120,7 +125,7 @@ public class ObjectMovement : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly" )
+        if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly")
         {
             Grab();
         }
@@ -136,17 +141,10 @@ public class ObjectMovement : MonoBehaviour
 
     void Grab() //toggles if the hand is grabbing an object
     {
-        if (grabbing)
+        if (grabbing && !Input.GetKey(KeyCode.Joystick1Button6))
         {
-            RaycastHit hitinfo;
-            Physics.Raycast(chosenObject.transform.position, Vector3.down, out hitinfo);
-            chosenObject.transform.position = hitinfo.point;
+            raycast();
 
-            //anim.SetBool("IsGrabbing", false);
-        }
-        else
-        {
-            //anim.SetBool("IsGrabbing", true);
         }
         grabbing = !grabbing;
     }
@@ -157,6 +155,13 @@ public class ObjectMovement : MonoBehaviour
         {
             snapBool = true;
         }
+    }
+
+    void raycast()
+    {
+        RaycastHit hitinfo;
+        Physics.Raycast(chosenObject.transform.position, Vector3.down, out hitinfo);
+        chosenObject.transform.position = hitinfo.point;
     }
 }
 
