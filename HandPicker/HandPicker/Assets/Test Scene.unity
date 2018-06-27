@@ -176,7 +176,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &441908014
 GameObject:
@@ -189,7 +189,6 @@ GameObject:
   - component: {fileID: 441908017}
   - component: {fileID: 441908016}
   - component: {fileID: 441908015}
-  - component: {fileID: 441908019}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -254,25 +253,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 441908014}
   m_LocalRotation: {x: 0.17327702, y: -0, z: -0, w: 0.9848731}
-  m_LocalPosition: {x: 0, y: 3.7499998, z: -3.5500002}
+  m_LocalPosition: {x: 1.09, y: 3.49, z: -5.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 19.957, y: 0, z: 0}
---- !u!114 &441908019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 441908014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc7fc9b8dc413ff43ae9f75d000438b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerObject: {fileID: 0}
-  cameraOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &927353251
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,3 +345,110 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1252004933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1252004936}
+  - component: {fileID: 1252004935}
+  - component: {fileID: 1252004934}
+  - component: {fileID: 1252004937}
+  - component: {fileID: 1252004938}
+  m_Layer: 0
+  m_Name: SceneLink
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1252004934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1252004933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -776688615, guid: b6554d3ccf491854bb7f223295f60a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneId: 639b3d89-5d34-4391-b0f8-1c0ab1e3d26b
+  ViewpointId: 
+  SceneAssets: []
+  PrefabBindings: []
+  ViewpointObject: {fileID: 441908014}
+  ViewpointHost: {fileID: 0}
+  SceneLinkState: {fileID: 0}
+  GltfLoader: {fileID: 11400000, guid: cc27c22717cb1a040a1697733c732c78, type: 2}
+  AutoConnect: 1
+--- !u!114 &1252004935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1252004933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1660723707, guid: b6554d3ccf491854bb7f223295f60a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ServiceUrl: https://staging.vertx.cloud
+  OnAuthenticated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1252004934}
+        m_MethodName: Connect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!4 &1252004936
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1252004933}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1252004937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1252004933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeecea8c328a30047a2f054f1f94bd03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewpoints: {fileID: 441908014}
+  avatar: {fileID: 100000, guid: b293ed4a96f02b74da1e092babeb1e25, type: 3}
+--- !u!114 &1252004938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1252004933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ecb712712c310942b63aeba0f0f5cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  vertxObjectList: []
+  numberOfObjects: 0
