@@ -21,9 +21,14 @@ public class ObjectMovement : MonoBehaviour
     {
 
         CanSnap();
+        if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly")
+        {
+            Grab();
+        }
 
         if (grabbing)
         {
+
             if (Input.GetKeyDown(KeyCode.Joystick1Button6))
             {
                 chosenObject.transform.localRotation = initialPosition.localRotation;
@@ -125,17 +130,17 @@ public class ObjectMovement : MonoBehaviour
             tempGO = tempGO.transform.parent.gameObject;
         }
         chosenRenderer = tempGO.GetComponentsInChildren<MeshRenderer>();
-        if(chosenRenderer[0].material != publicMaterial)
+        if(chosenRenderer[0].sharedMaterial != publicMaterial)
         {
             previous = new Material[chosenRenderer.Length];
             for (int i = 0; i < chosenRenderer.Length; i++)
             {
-                previous[i] = chosenRenderer[i].material;
+                previous[i] = chosenRenderer[i].sharedMaterial;
             }
             for (int i = 0; i < previous.Length; i++)
             {
                 publicMaterial.color = previous[i].color;
-                chosenRenderer[i].material = publicMaterial;
+                chosenRenderer[i].sharedMaterial = publicMaterial;
             }
         }
         //Debug.Log((initialPosition.transform.position).ToString());
@@ -143,18 +148,19 @@ public class ObjectMovement : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        Debug.Log("Exited Trigger");
         for (int i = 0; i < chosenRenderer.Length; i++)
         {
-            chosenRenderer[i].material = previous[i];
+            chosenRenderer[i].sharedMaterial = previous[i];
         }
     }
 
     private void OnTriggerStay(Collider collision)
     {
-        if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly")
-        {
-            Grab();
-        }
+        //if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly")
+        //{
+        //    Grab();
+        //}
         if (!grabbing)
         {
             chosenObject = collision.gameObject;
