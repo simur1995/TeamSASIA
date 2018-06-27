@@ -50,12 +50,12 @@ public class PlayerController : MonoBehaviour
 
 
         //updown
-        if (Input.GetKey(KeyCode.Joystick1Button4))
+        if (Input.GetAxis("LeftBumper") > 0.5)
         {
             Debug.Log("down detected!");
             transform.Translate(Time.deltaTime * MOVESPEED * Vector3.down);
         }
-        if (Input.GetKey(KeyCode.Joystick1Button5))
+        if (Input.GetAxis("RightBumper") > 0.5)
         {
             Debug.Log("up detected!");
             transform.Translate(Time.deltaTime * MOVESPEED * Vector3.up);
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
             transform.Rotate(new Vector3(0, Time.deltaTime * -ROTSPEED, 0));
         }
-        if (Input.GetAxis("LeftHorizontal") > 0.5)
+        if (Input.GetAxis("LeftHorizontal") >0.5)
         {
             Debug.Log("RightRotation detected!");
 

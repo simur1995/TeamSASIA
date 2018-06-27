@@ -24,13 +24,12 @@ public class ObjectMovement : MonoBehaviour
 
         if (grabbing)
         {
-            if (Input.GetKey(KeyCode.Joystick1Button6))
+            if (Input.GetKeyDown(KeyCode.Joystick1Button6))
             {
                 chosenObject.transform.localRotation = initialPosition.localRotation;
                 chosenObject.transform.localScale = initialPosition.localScale;
-                
                 chosenObject.transform.position = worldPosition;
-                //chosenObject.transform.gameObject.transform.position = worldPosition;
+
                 Debug.Log("Back pressed!");
                 Grab();
 
@@ -38,8 +37,7 @@ public class ObjectMovement : MonoBehaviour
             }
             //position
             chosenObject.transform.position = transform.position;
-            //Debug.Log((initialPosition.transform.position).ToString());
-            Debug.Log(worldPosition.ToString());
+
             //Scaling
             if (Input.GetKey(Scale) && Input.GetAxis("Right Trigger") > 0)
             {
@@ -112,14 +110,18 @@ public class ObjectMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision2)
     {
+        Debug.Log(collision2);
         chosenRenderer = collision2.GetComponentInChildren<MeshRenderer>();
         previous = chosenRenderer.material;
+        Debug.Log("2");
         publicMaterial.color = previous.color;
         matArray[1] = previous;
         matArray[0] = publicMaterial;
+        Debug.Log("3");
         chosenRenderer.materials = matArray;
         initialPosition = collision2.transform;
         worldPosition = collision2.transform.gameObject.transform.position;
+        Debug.Log("4");
         //Debug.Log((initialPosition.transform.position).ToString());
     }
 
