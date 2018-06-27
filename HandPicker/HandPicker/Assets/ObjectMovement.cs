@@ -11,29 +11,18 @@ public class ObjectMovement : MonoBehaviour
     public float ScaleSpeed, SnapDegrees;
     bool snapBool = true;
     Material previous;
-    public Material publicShader;
+    public Material publicMaterial;
+    private Material[] matArray = new Material[2];
+    private Renderer chosenRenderer;
 
     
     private void Update()
     {
-        //if (chosenObject != null)
-        //{
-        //    if (chosenObject.GetComponent<Renderer>() == null)
-        //    {
-        //        chosenObject.AddComponent<Renderer>();
-        //    }
-        //    else
-        //    {
-        //        previous = chosenObject.GetComponent<Renderer>().material.shader;
-        //    }
-        //}
 
         CanSnap();
 
         if (grabbing)
         {
-            //chosenObject.GetComponent<MeshRenderer>().material.shader = Shader.Find("ToonLitOutline");
-            chosenObject.GetComponent<MeshRenderer>().material = publicShader;
             //position
             chosenObject.transform.position = transform.position;
             
@@ -107,6 +96,21 @@ public class ObjectMovement : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider collision2)
+    {
+        chosenRenderer = collision2.GetComponentInChildren<MeshRenderer>();
+        previous = chosenRenderer.material;
+        matArray[0] = previous;
+        matArray[1] = publicMaterial;
+        chosenRenderer.materials = matArray;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        matArray[1] = previous;
+        chosenRenderer.materials = matArray;
+    }
+
     private void OnTriggerStay(Collider collision)
     {
         if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly" )
@@ -120,36 +124,6 @@ public class ObjectMovement : MonoBehaviour
             {
                 chosenObject = chosenObject.transform.parent.gameObject;
             }
-            if (chosenObject != null)
-            {
-                if (chosenObject.GetComponent<MeshRenderer>() == null)
-                {
-                    chosenObject.AddComponent<MeshRenderer>();
-                }
-                else
-                {
-                    previous = chosenObject.GetComponent<MeshRenderer>().material;
-                }
-            }
-            //while(chosenObject.GetComponent<MeshRenderer>() == null)
-            //{
-            //}
-            //chosenRenderer = chosenObject.GetComponentInChildren<MeshRenderer>();
-            //previous = chosenRenderer.material;
-            //matArray[0] = previous;
-            //matArray[1] = publicShader;
-            //chosenRenderer.materials = matArray;
-            //if (chosenObject != null)
-            //{
-            //    if (chosenObject.GetComponent<MeshRenderer>() == null)
-            //    {
-            //        chosenObject.AddComponent<MeshRenderer>();
-            //    }
-            //    else
-            //    {
-            //        previous = chosenObject.GetComponent<MeshRenderer>().material;
-            //    }
-            //}
         }
     }
 
@@ -157,11 +131,6 @@ public class ObjectMovement : MonoBehaviour
     {
         if (grabbing)
         {
-            //if (previous != null)
-            //{
-            //    matArray[1] = previous;
-            //    chosenObject.GetComponent<MeshRenderer>().materials = matArray;
-            //}
             RaycastHit hitinfo;
             Physics.Raycast(chosenObject.transform.position, Vector3.down, out hitinfo);
             chosenObject.transform.position = hitinfo.point;
