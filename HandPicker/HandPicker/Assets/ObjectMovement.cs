@@ -163,6 +163,11 @@ public class ObjectMovement : MonoBehaviour
     {
         if (grabbing)
         {
+            //if (previous != null)
+            //{
+            //    matArray[1] = previous;
+            //    chosenObject.GetComponent<MeshRenderer>().materials = matArray;
+            //}
             RaycastHit hitinfo;
             Physics.Raycast(chosenObject.transform.position, Vector3.down, out hitinfo);
             chosenObject.transform.position = hitinfo.point;
