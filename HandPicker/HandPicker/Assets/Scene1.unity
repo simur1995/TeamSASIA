@@ -319,6 +319,7 @@ MonoBehaviour:
   MoveObject: 330
   ScaleSpeed: 0.01
   SnapDegrees: 1
+  publicShader: {fileID: 2100000, guid: 5d69df9d9d11e49d110086ba44295342, type: 2}
 --- !u!23 &1404041281
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -649,7 +650,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a4b7ac43905d544b84dc05f816b364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraSpeed: 5
   Cameraoffset: {x: 0, y: -5, z: 5}
-  MaxCamera: 5
   hand: {fileID: 1404041276}

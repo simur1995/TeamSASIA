@@ -10,10 +10,15 @@ public class ObjectMovement : MonoBehaviour
     public KeyCode Scale, Rotate, MoveObject;
     public float ScaleSpeed, SnapDegrees;
     bool snapBool = true;
+    Material previous;
+    public Material publicMaterial;
+    private Material[] matArray = new Material[2];
+    private Renderer chosenRenderer;
 
     
     private void Update()
     {
+
         CanSnap();
 
         if (grabbing)
@@ -40,21 +45,26 @@ public class ObjectMovement : MonoBehaviour
             {
                 chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
             }
+           
 
             //Rotation With Snap
 
 
             if (Input.GetAxis("Left Trigger") > 0)
             {
+                if (Input.GetKey(KeyCode.Joystick1Button2))
+                {
+                    chosenObject.transform.Rotate(new Vector3(0, 0, -SnapDegrees));
+                }
                 if (Input.GetKey(Rotate))
                 {
                     chosenObject.transform.Rotate(new Vector3(0, -SnapDegrees, 0));
                 }
                 else
                 {
-                    if (snapBool && !(Input.GetKey(Scale)))
+                    if (snapBool && !(Input.GetKey(Scale)) && !(Input.GetKey(KeyCode.Joystick1Button2)))
                     {
-                        chosenObject.transform.Rotate(new Vector3(0, -45, 0));
+                        chosenObject.transform.Rotate(new Vector3(0, 45, 0));
                         snapBool = false;
                         
                     }
@@ -62,15 +72,19 @@ public class ObjectMovement : MonoBehaviour
             }
             if (Input.GetAxis("Right Trigger") > 0)
             {
+                if (Input.GetKey(KeyCode.Joystick1Button2))
+                {
+                    chosenObject.transform.Rotate(new Vector3(0, 0, SnapDegrees));
+                }
                 if (Input.GetKey(Rotate))
                 {
                     chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
                 }
                 else
                 {
-                    if (snapBool && !(Input.GetKey(Scale)))
+                    if (snapBool && !(Input.GetKey(Scale)) && !(Input.GetKey(KeyCode.Joystick1Button2)))
                     {
-                        chosenObject.transform.Rotate(new Vector3(0, 45, 0));
+                        chosenObject.transform.Rotate(new Vector3(0, -45, 0));
                         snapBool = false;
                         if (Input.GetAxis("Right Trigger") < 0.2)
                         {
@@ -80,6 +94,21 @@ public class ObjectMovement : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider collision2)
+    {
+        chosenRenderer = collision2.GetComponentInChildren<MeshRenderer>();
+        previous = chosenRenderer.material;
+        matArray[0] = previous;
+        matArray[1] = publicMaterial;
+        chosenRenderer.materials = matArray;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        matArray[1] = previous;
+        chosenRenderer.materials = matArray;
     }
 
     private void OnTriggerStay(Collider collision)
@@ -105,6 +134,7 @@ public class ObjectMovement : MonoBehaviour
             RaycastHit hitinfo;
             Physics.Raycast(chosenObject.transform.position, Vector3.down, out hitinfo);
             chosenObject.transform.position = hitinfo.point;
+            
         }
         grabbing = !grabbing;
     }
