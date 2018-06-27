@@ -175,7 +175,7 @@ public class ObjectMovement : MonoBehaviour
     {
         if (grabbing && !Input.GetKey(KeyCode.Joystick1Button6))
         {
-            PlaceOnFloor();
+            raycast();
         }
         grabbing = !grabbing;
     }
@@ -188,21 +188,14 @@ public class ObjectMovement : MonoBehaviour
         }
     }
 
-    void PlaceOnFloor()
+    void raycast()
     {
         RaycastHit hitinfo;
-        if (Physics.Raycast(new Ray(chosenObject.transform.position, Vector3.down), out hitinfo, float.MaxValue, 1 << LayerMask.NameToLayer("Floor")))
-        {
-
-            chosenObject.transform.position = hitinfo.point;
-            float moveAmount = chosenObject.transform.position.y - chosenObject.GetComponentInChildren<Collider>().ClosestPointOnBounds(hitinfo.point).y;
-            Vector3 newPosition = new Vector3(hitinfo.point.x, chosenObject.transform.position.y - moveAmount, hitinfo.point.z);
-            chosenObject.transform.position = newPosition;
-        }
-        else
-        {
-            Debug.Log("Couldn't find the floor");
-        }
+        Physics.Raycast(chosenObject.transform.position, Vector3.down, out hitinfo);
+        chosenObject.transform.position = hitinfo.point;
+        float moveAmount = chosenObject.transform.position.y - chosenObject.GetComponentInChildren<Collider>().ClosestPointOnBounds(hitinfo.point).y;
+        Vector3 newPosition = new Vector3(hitinfo.point.x, chosenObject.transform.position.y - moveAmount, hitinfo.point.z);
+        chosenObject.transform.position = newPosition;
     }
 }
 
