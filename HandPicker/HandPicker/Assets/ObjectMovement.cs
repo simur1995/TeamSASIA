@@ -190,12 +190,42 @@ public class ObjectMovement : MonoBehaviour
 
     void raycast()
     {
+<<<<<<< HEAD
         RaycastHit hitinfo;
         Physics.Raycast(chosenObject.transform.position, Vector3.down, out hitinfo);
         chosenObject.transform.position = hitinfo.point;
         float moveAmount = chosenObject.transform.position.y - chosenObject.GetComponentInChildren<Collider>().ClosestPointOnBounds(hitinfo.point).y;
         Vector3 newPosition = new Vector3(hitinfo.point.x, chosenObject.transform.position.y - moveAmount, hitinfo.point.z);
         chosenObject.transform.position = newPosition;
+=======
+        //RaycastHit hitinfo;
+        //if (Physics.Raycast(new Ray(chosenObject.transform.position, Vector3.down), out hitinfo, float.MaxValue, 1 << LayerMask.NameToLayer("Floor")))
+        //{
+
+        //    chosenObject.transform.position = hitinfo.point;
+        //    float colliderDifference = chosenObject.transform.position.y - chosenObject.GetComponentInChildren<Collider>().ClosestPointOnBounds(hitinfo.point).y;
+        //    Vector3 newPosition = new Vector3(hitinfo.point.x, hitinfo.point.y + colliderDifference, hitinfo.point.z);
+        //    chosenObject.transform.position = newPosition;
+        //}
+        //else
+        //{
+        //    Debug.Log("Couldn't find the floor");
+        //}
+        
+        if(chosenObject.GetComponent<RemoveRB>() == null)
+        {
+            chosenObject.AddComponent<RemoveRB>();
+        }
+        var rb = chosenObject.GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+           rb = chosenObject.AddComponent<Rigidbody>();
+        }
+        rb.useGravity = true;
+
+
+
+>>>>>>> parent of 412c4a0... Revert "change"
     }
 }
 
