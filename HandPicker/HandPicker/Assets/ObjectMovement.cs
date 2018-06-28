@@ -21,7 +21,6 @@ public class ObjectMovement : MonoBehaviour
     public delegate void JustGrabbed();
     public event JustGrabbed YouJustGrabbed;
     public Text alreadyGrabbed;
-    private bool contains = false;
     public string Name;
 
     private static Vector3 NearestWorldAxis(Vector3 v)
@@ -52,21 +51,12 @@ public class ObjectMovement : MonoBehaviour
 
         if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly")
         {
-            NodeLink tempNL = chosenObject.GetComponent<NodeLink>();
-            foreach (MetaData item in heldGO)
-            {
-                if(item.guid == tempNL.Guid)
-                {
-                    contains = true;
-                }
-            }
-            if (!contains)
+            if (!heldGO.Contains(chosenObject.GetComponent<NodeLink>().Guid))
             {
                 Grab();
             }
             else
             {
-                contains = false;
                 alreadyGrabbed.text = "Someone else is messing with that object!";
             }
         }
