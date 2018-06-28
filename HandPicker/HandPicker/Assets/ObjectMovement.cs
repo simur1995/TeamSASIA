@@ -180,14 +180,14 @@ public class ObjectMovement : MonoBehaviour
 
     void Grab() //toggles if the hand is grabbing an object
     {
-        if (grabbing)
+        if (!grabbing)
         {
-            SendMessage("Grabbed", chosenObject);
+            SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
         }
-        else
-        {
-            SendMessage("Dropped");
-        }
+        //else
+        //{
+        //    SendMessage("Dropped", chosenObject.GetComponent<NodeLink>());
+        //}
         if (grabbing && !Input.GetKey(KeyCode.Joystick1Button6))
         {
             PlaceOnFloor();
