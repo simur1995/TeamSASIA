@@ -679,7 +679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091ca53bd3f62be41a6d469a1cc13543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceToSee: 0
+  distanceToSee: 15
   ObjectName: 
   tempMaterial: {fileID: 0}
 --- !u!1 &1662797732

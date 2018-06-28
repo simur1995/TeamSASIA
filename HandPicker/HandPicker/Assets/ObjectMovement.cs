@@ -20,8 +20,9 @@ public class ObjectMovement : MonoBehaviour
     public event JustGrabbed YouJustGrabbed;
     private void Update()
     {
-
+        
         CanSnap();
+
         if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly")
         {
             Grab();
@@ -29,7 +30,7 @@ public class ObjectMovement : MonoBehaviour
 
         if (grabbing)
         {
-
+            //Restore transformations
             if (Input.GetKeyDown(KeyCode.Joystick1Button6))
             {
                 chosenObject.transform.localRotation = initialPosition.localRotation;
@@ -41,6 +42,7 @@ public class ObjectMovement : MonoBehaviour
 
                 return;
             }
+
             //position
             chosenObject.transform.position = transform.position;
 
@@ -55,28 +57,17 @@ public class ObjectMovement : MonoBehaviour
             }
 
             //Rotation
-            if (Input.GetKey(Rotate) && Input.GetAxis("Left Trigger") > 0)
-            {
-                chosenObject.transform.Rotate(new Vector3(0, -SnapDegrees, 0));
-            }
-            if (Input.GetKey(Rotate) && Input.GetAxis("Right Trigger") > 0)
-            {
-                chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
-            }
-
-
-            //Rotation With Snap
-
-
+            #region
             if (Input.GetAxis("Left Trigger") > 0)
             {
+
                 if (Input.GetKey(KeyCode.Joystick1Button2))
                 {
                     chosenObject.transform.Rotate(new Vector3(0, 0, -SnapDegrees));
                 }
                 if (Input.GetKey(Rotate))
                 {
-                    chosenObject.transform.Rotate(new Vector3(0, -SnapDegrees, 0));
+                    chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
                 }
                 else
                 {
@@ -92,13 +83,14 @@ public class ObjectMovement : MonoBehaviour
             }
             if (Input.GetAxis("Right Trigger") > 0)
             {
+
                 if (Input.GetKey(KeyCode.Joystick1Button2))
                 {
-                    chosenObject.transform.Rotate(new Vector3(0, 0, SnapDegrees));
+                    chosenObject.transform.Rotate(new Vector3(0, 0,SnapDegrees));
                 }
                 if (Input.GetKey(Rotate))
                 {
-                    chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
+                    chosenObject.transform.Rotate(new Vector3(0, -SnapDegrees, 0));
                 }
                 else
                 {
@@ -113,6 +105,7 @@ public class ObjectMovement : MonoBehaviour
                     }
                 }
             }
+            #endregion
         }
     }
 
@@ -156,6 +149,13 @@ public class ObjectMovement : MonoBehaviour
         {
             chosenRenderer[i].sharedMaterial = previous[i];
         }
+
+
+        if (!grabbing)
+        {
+            chosenObject = null;
+        }
+
     }
 
     private void OnTriggerStay(Collider collision)
@@ -178,13 +178,18 @@ public class ObjectMovement : MonoBehaviour
     {
         if (!grabbing)
         {
+<<<<<<< HEAD
             //GameObject.Find("DefaultNodeLink").SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
 
+=======
+            GameObject.Find("SceneLink").SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
+            
+>>>>>>> 82b4db31b34c45fdc5ba2d3e6f679cd33461aedc
         }
         //else
         //{
         //    SendMessage("Dropped", chosenObject.GetComponent<NodeLink>());
-        //}
+       // }
         if (grabbing && !Input.GetKey(KeyCode.Joystick1Button6))
         {
             PlaceOnFloor();
