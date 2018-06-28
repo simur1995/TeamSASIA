@@ -33,7 +33,7 @@ public class MessageManager : MonoBehaviour {
         MetaData fireData = new MetaData();
         fireData.guid = temp[1];
         fireData.viewpointid = userid;
-        NL.Fire(temp[0], fireData);
+        NL.SendMessage(temp[0], fireData);
 
     }
 

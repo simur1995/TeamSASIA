@@ -21,7 +21,7 @@ public class ObjectMovement : MonoBehaviour
     public delegate void JustGrabbed();
     public event JustGrabbed YouJustGrabbed;
     public Text alreadyGrabbed;
-    private bool contains;
+    private bool contains = false;
     public string Name;
 
     private static Vector3 NearestWorldAxis(Vector3 v)
