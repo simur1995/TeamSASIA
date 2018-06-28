@@ -21,6 +21,7 @@ public class ObjectMovement : MonoBehaviour
     {
 
         CanSnap();
+
         if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly")
         {
             Grab();
@@ -40,6 +41,7 @@ public class ObjectMovement : MonoBehaviour
 
                 return;
             }
+
             //position
             chosenObject.transform.position = transform.position;
 
@@ -54,28 +56,17 @@ public class ObjectMovement : MonoBehaviour
             }
 
             //Rotation
-            if (Input.GetKey(Rotate) && Input.GetAxis("Left Trigger") > 0)
-            {
-                chosenObject.transform.Rotate(new Vector3(0, -SnapDegrees, 0));
-            }
-            if (Input.GetKey(Rotate) && Input.GetAxis("Right Trigger") > 0)
-            {
-                chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
-            }
-
-
-            //Rotation With Snap
-
-
+            #region
             if (Input.GetAxis("Left Trigger") > 0)
             {
+
                 if (Input.GetKey(KeyCode.Joystick1Button2))
                 {
                     chosenObject.transform.Rotate(new Vector3(0, 0, -SnapDegrees));
                 }
                 if (Input.GetKey(Rotate))
                 {
-                    chosenObject.transform.Rotate(new Vector3(0, -SnapDegrees, 0));
+                    chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
                 }
                 else
                 {
@@ -91,13 +82,14 @@ public class ObjectMovement : MonoBehaviour
             }
             if (Input.GetAxis("Right Trigger") > 0)
             {
+
                 if (Input.GetKey(KeyCode.Joystick1Button2))
                 {
-                    chosenObject.transform.Rotate(new Vector3(0, 0, SnapDegrees));
+                    chosenObject.transform.Rotate(new Vector3(0, 0,SnapDegrees));
                 }
                 if (Input.GetKey(Rotate))
                 {
-                    chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
+                    chosenObject.transform.Rotate(new Vector3(0, -SnapDegrees, 0));
                 }
                 else
                 {
@@ -112,6 +104,7 @@ public class ObjectMovement : MonoBehaviour
                     }
                 }
             }
+            #endregion
         }
     }
 
@@ -155,6 +148,8 @@ public class ObjectMovement : MonoBehaviour
         {
             chosenRenderer[i].sharedMaterial = previous[i];
         }
+
+        chosenObject = null;
     }
 
     private void OnTriggerStay(Collider collision)
@@ -178,14 +173,17 @@ public class ObjectMovement : MonoBehaviour
         if (!grabbing)
         {
             GameObject.Find("SceneLink").SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
+            
         }
-        //else
-        //{
-        //    SendMessage("Dropped", chosenObject.GetComponent<NodeLink>());
-        //}
+        else
+        {
+            SendMessage("Dropped", chosenObject.GetComponent<NodeLink>());
+        }
         if (grabbing && !Input.GetKey(KeyCode.Joystick1Button6))
         {
             PlaceOnFloor();
+
+            chosenObject = null;
         }
         grabbing = !grabbing;
     }
