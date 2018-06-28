@@ -19,7 +19,7 @@ public class ObjectMovement : MonoBehaviour
 
     private void Update()
     {
-
+        
         CanSnap();
 
         if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly")
@@ -29,7 +29,7 @@ public class ObjectMovement : MonoBehaviour
 
         if (grabbing)
         {
-
+            //Restore transformations
             if (Input.GetKeyDown(KeyCode.Joystick1Button6))
             {
                 chosenObject.transform.localRotation = initialPosition.localRotation;
@@ -149,7 +149,12 @@ public class ObjectMovement : MonoBehaviour
             chosenRenderer[i].sharedMaterial = previous[i];
         }
 
-        chosenObject = null;
+
+        if (!grabbing)
+        {
+            chosenObject = null;
+        }
+
     }
 
     private void OnTriggerStay(Collider collision)
@@ -175,15 +180,13 @@ public class ObjectMovement : MonoBehaviour
             GameObject.Find("SceneLink").SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
             
         }
-        else
-        {
-            SendMessage("Dropped", chosenObject.GetComponent<NodeLink>());
-        }
+        //else
+        //{
+        //    SendMessage("Dropped", chosenObject.GetComponent<NodeLink>());
+       // }
         if (grabbing && !Input.GetKey(KeyCode.Joystick1Button6))
         {
             PlaceOnFloor();
-
-            chosenObject = null;
         }
         grabbing = !grabbing;
     }
