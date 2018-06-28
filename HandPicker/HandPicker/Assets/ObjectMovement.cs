@@ -21,6 +21,28 @@ public class ObjectMovement : MonoBehaviour
     public delegate void JustGrabbed();
     public event JustGrabbed YouJustGrabbed;
     public Text alreadyGrabbed;
+
+    private static Vector3 NearestWorldAxis(Vector3 v)
+     {
+         if (Mathf.Abs(v.x) < Mathf.Abs(v.y))
+         {
+             v.x = 0;
+             if (Mathf.Abs(v.y) < Mathf.Abs(v.z))
+                 v.y = 0;
+             else
+                 v.z = 0;
+         }
+         else
+         {
+             v.y = 0;
+             if (Mathf.Abs(v.x) < Mathf.Abs(v.z))
+                 v.x = 0;
+             else
+                 v.z = 0;
+         }
+         return v;
+     }
+
     private void Update()
     {
         
@@ -84,8 +106,12 @@ public class ObjectMovement : MonoBehaviour
                 {
                     if (snapBool && !(Input.GetKey(Scale)) && !(Input.GetKey(KeyCode.Joystick1Button2)))
                     {
-                        chosenObject.transform.Rotate(new Vector3(0, 45, 0));
                         
+                        Vector3 alignedForward = NearestWorldAxis(transform.forward);
+                        Vector3 alignedUp = NearestWorldAxis(transform.up);
+                        chosenObject.transform.rotation = Quaternion.LookRotation(alignedForward, alignedUp);
+                        chosenObject.transform.Rotate(NearestWorldAxis(transform.up));
+                       chosenObject.transform.Rotate(new Vector3(0, 45, 0));
 
                         snapBool = false;
 
@@ -107,6 +133,11 @@ public class ObjectMovement : MonoBehaviour
                 {
                     if (snapBool && !(Input.GetKey(Scale)) && !(Input.GetKey(KeyCode.Joystick1Button2)))
                     {
+                        Vector3 alignedForward = NearestWorldAxis(transform.forward);
+                        Vector3 alignedUp = NearestWorldAxis(transform.up);
+                        chosenObject.transform.rotation = Quaternion.LookRotation(alignedForward, alignedUp);
+                        chosenObject.transform.Rotate(NearestWorldAxis(transform.forward));
+                        
                         chosenObject.transform.Rotate(new Vector3(0, -45, 0));
                         snapBool = false;
                         if (Input.GetAxis("Right Trigger") < 0.2)
