@@ -4,9 +4,9 @@ using UnityEngine;
 using VertexUnityPlayer;
 
 public class MessageManager : MonoBehaviour {
-    public List<string> heldGO = new List<string>();
     private string lastMessage;
     NodeLink NL;
+    List<string> heldGO;
     // Use this for initialization
     void Start() {
     }
@@ -19,7 +19,6 @@ public class MessageManager : MonoBehaviour {
     void Grabbed(string guid)
     {
         Debug.Log("REVEIVED");
-        heldGO.Add(guid);
         NL.Fire("OnlineGrab", guid);
         lastMessage = "OnlineGrab";
         Debug.Log("SENT");
@@ -28,7 +27,6 @@ public class MessageManager : MonoBehaviour {
     void Dropped(string guid)
     {
         lastMessage = "Dropped";
-        heldGO.Remove(guid);
         GetComponent<NodeLink>().Fire("OnlineDrop", guid);
         
     }
@@ -51,6 +49,8 @@ public class MessageManager : MonoBehaviour {
         Grabbed("1234");
         GameObject parent = transform.parent.gameObject;
         Debug.Log(parent);
+        heldGO = ObjectMovement.heldGO;
+ 
         //GameObject.Find("Player").GetComponent<ObjectMovement>()
     }
 

@@ -5,6 +5,7 @@ using VertexUnityPlayer;
 
 public class ObjectMovement : MonoBehaviour
 {
+    public static List<string> heldGO = new List<string>();
     private GameObject chosenObject;
     static public bool grabbing = false;
     public KeyCode Scale, Rotate, MoveObject;
@@ -23,7 +24,7 @@ public class ObjectMovement : MonoBehaviour
         
         CanSnap();
 
-        if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly")
+        if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly" && !heldGO.Contains(chosenObject.GetComponent<NodeLink>().Guid))
         {
             Grab();
         }
@@ -183,6 +184,10 @@ public class ObjectMovement : MonoBehaviour
 
             //GameObject.Find("SceneLink").SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
             
+        }
+        else
+        {
+            GameObject.Find("SceneLink").GetComponentInChildren<MessageManager>().SendMessage("Dropped", chosenObject.GetComponent<NodeLink>().Guid);
         }
         //else
         //{
