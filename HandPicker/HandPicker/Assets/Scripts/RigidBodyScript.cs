@@ -8,58 +8,60 @@ public class RigidBodyScript : MonoBehaviour
     public List<GameObject> vertxObjectList;
     public int numberOfObjects;
 
-    // Use this for initialization
     void Start()
     {
         vertxObjectList = new List<GameObject>();
         StartCoroutine(RefreshObjectList());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-        ScanObjects();
-
-    }
-
     void ScanObjects()
     {
+        Debug.Log("Scanning objects");
         numberOfObjects = gameObject.transform.childCount - 2;
-        StartCoroutine(RefreshObjectList());
-    }
-
-
-    IEnumerator RefreshObjectList()
-    {
-        while (true)
-        {
-            PopulateObjectList();
-
-            yield return new WaitForSeconds(5);
-        }
-    }
-
-    void AddRigidComponent()
-    {
-        foreach (GameObject model in vertxObjectList)
-        {
-            model.AddComponent<Rigidbody>();
-        }
     }
 
     void PopulateObjectList()
     {
-        for (int i = 0; i < numberOfObjects; i++)
+        Debug.Log("Populating list");
+        vertxObjectList.Clear();
+        numberOfObjects = 0;
+        foreach (Transform child in transform)
         {
-            vertxObjectList.Add(gameObject.transform.GetChild(i).gameObject);
+            Debug.Log(child.name);
+            if (child.name != "Viewpoints" && child.name != "ViewPoint Follower")
+            {
+                numberOfObjects++;
+                vertxObjectList.Add(child.gameObject);
+            }
         }
 
-        //if(VertexUnityPlayer.)
-        //{
-
-        //}
     }
 
+    void AddRigidComponent()
+    {
+        Debug.Log("Adding rigid components");
+        foreach (GameObject model in vertxObjectList)
+        {
+            if(model.GetComponent<Rigidbody>() == null)
+            {
+                model.AddComponent<Rigidbody>();
+            }
 
+        }
+    }
+
+    IEnumerator RefreshObjectList()
+    {
+        int loop = 0;
+        while (true)
+        {
+            loop++;
+            Debug.Log("Refresh process(" + loop + ") started");
+            ScanObjects();
+            PopulateObjectList();
+            AddRigidComponent();
+            Debug.Log("Refresh process(" + loop + ") ended");
+            yield return new WaitForSeconds(3);
+        }
+    }
 }
