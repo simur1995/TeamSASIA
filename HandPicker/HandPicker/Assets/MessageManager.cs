@@ -50,9 +50,9 @@ public class MessageManager : MonoBehaviour {
     {
         if(tempguid != guid && !heldGO.Contains(guid))
         {
-            heldGO.Add(guid);
-            Debug.Log("RECEIVED");
+            heldGO.Add(guid);   
         }
+        Debug.Log("RECEIVED");
 
     }
 
@@ -75,10 +75,10 @@ public class MessageManager : MonoBehaviour {
         //GameObject.Find("Player").GetComponent<ObjectMovement>()
     }
 
-    void nameupdate(string userid)
-    {
-        NameAndID.Add(tempViewPoint, userid);
-    }
+    //void nameupdate(string userid)
+    //{
+    //    NameAndID.Add(tempViewPoint, userid);
+    //}
 
     //TODO get method name
     void ConnectPlaceHolder(string id) //connect placeholder
