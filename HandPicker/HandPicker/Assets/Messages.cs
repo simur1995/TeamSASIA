@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VertexUnityPlayer;
 
 public class Messages : MonoBehaviour {
-    public List<object> heldGO = new List<object>();
+    public List<string> heldGO = new List<string>();
     private string lastMessage;
     // Use this for initialization
     void Start() {
@@ -15,22 +16,31 @@ public class Messages : MonoBehaviour {
 
     }
 
-    void Grabbed(object grabbedObject)
+    void Grabbed(string guid)
     {
-        heldGO.Add(grabbedObject);
-        SendMessageUpwards("OnlineGrab", grabbedObject);
+        NodeLink grabbedNL = GameObject.Find(guid).GetComponent<NodeLink>();
+        heldGO.Add(guid);
+        grabbedNL.Fire("OnlineGrab", guid);
         lastMessage = "OnlineGrab";
+        Debug.Log("SENT");
     }
 
-    void OnlineGrab(object grabbedObject)
-    {
-        heldGO.Add(grabbedObject);
-    }
-
-    void Dropped()
+    void Dropped(NodeLink grabbedNL)
     {
         lastMessage = "Dropped";
-        //heldGO.Remove()
+        heldGO.Remove(grabbedNL.Guid);
+        grabbedNL.Fire("OnlineGrab", grabbedNL);
+    }
+
+    void OnlineGrab(string guid)
+    {
+        heldGO.Add(guid);
+        Debug.Log("RECEIVED");
+    }
+
+    void OnlineDrop(NodeLink NL)
+    {
+
     }
 
 }
