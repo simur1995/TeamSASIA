@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ObjectMovement : MonoBehaviour
 {
-    public static List<string> heldGO = new List<string>();
+    public static List<MetaData> heldGO = new List<MetaData>();
     private GameObject chosenObject;
     static public bool grabbing = false;
     public KeyCode Scale, Rotate, MoveObject;
@@ -21,6 +21,7 @@ public class ObjectMovement : MonoBehaviour
     public delegate void JustGrabbed();
     public event JustGrabbed YouJustGrabbed;
     public Text alreadyGrabbed;
+    private bool contains;
 
     private static Vector3 NearestWorldAxis(Vector3 v)
      {
@@ -50,14 +51,21 @@ public class ObjectMovement : MonoBehaviour
 
         if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly")
         {
-            if (!heldGO.Contains(chosenObject.GetComponent<NodeLink>().Guid))
+            NodeLink tempNL = chosenObject.GetComponent<NodeLink>();
+            foreach (MetaData item in heldGO)
+            {
+                if(item.guid == tempNL.Guid)
+                {
+                    contains = true;
+                }
+            }
+            if (!contains)
             {
                 Grab();
-           
-                
             }
             else
             {
+                contains = false;
                 alreadyGrabbed.text = "Someone else is messing with that object!";
             }
         }
