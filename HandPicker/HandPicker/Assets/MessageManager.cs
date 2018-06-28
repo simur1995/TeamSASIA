@@ -40,7 +40,7 @@ public class MessageManager : MonoBehaviour {
     void Grabbed(MetaData fireInfo)
     {
         tempguid = fireInfo.guid;
-        NL.Fire("OnlineGrab", fireInfo);
+        NL.Fire("OnlineGrab", fireInfo.guid);
         lastMessage = "OnlineGrab";
         Debug.Log("SENT");
     }
@@ -48,7 +48,7 @@ public class MessageManager : MonoBehaviour {
     void Dropped(MetaData FireInfo)
     {
         lastMessage = "Dropped";
-        NL.Fire("OnlineDrop", FireInfo);   
+        NL.Fire("OnlineDrop", FireInfo.guid);   
     }
 
     void OnlineGrab(MetaData fireInfo)
