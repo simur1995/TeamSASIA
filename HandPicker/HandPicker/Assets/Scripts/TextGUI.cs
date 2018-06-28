@@ -6,7 +6,7 @@ using VertexUnityPlayer;
 
 public class TextGUI : MonoBehaviour
 {
-    Transform SceneViewpoints;
+    GameObject SceneViewpoints;
 
     public List<GameObject> objectList;
     public List<GameObject> playerList;
@@ -18,13 +18,9 @@ public class TextGUI : MonoBehaviour
     void Start()
     {
 
-        while(SceneViewpoints == null)
-        {
-            GetViewpointObject();
-        }
-
         objectList = new List<GameObject>();
         playerList = new List<GameObject>();
+        
 
         StartCoroutine(Scan());
         StartCoroutine(UpdateText());
@@ -37,7 +33,7 @@ public class TextGUI : MonoBehaviour
         {
             if (child.name == "Viewpoints")
             {
-                SceneViewpoints = child;
+                SceneViewpoints = child.gameObject;
                 break;
             }
         }
@@ -46,7 +42,7 @@ public class TextGUI : MonoBehaviour
     void PopulatePlayerList()
     {
         playerList.Clear();
-        foreach (Transform child in SceneViewpoints)
+        foreach (Transform child in SceneViewpoints.transform)
         {
             playerList.Add(child.gameObject);
         }
@@ -71,7 +67,7 @@ public class TextGUI : MonoBehaviour
         {
             count++;
             Debug.Log("Scanning" + " " + count);
-            numberOfPlayers = SceneViewpoints.childCount;
+            numberOfPlayers = SceneViewpoints.transform.childCount;
             numberOfObjects = transform.childCount - 2;
             yield return new WaitForSeconds(1);
         }
