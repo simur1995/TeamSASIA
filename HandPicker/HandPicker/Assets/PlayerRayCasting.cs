@@ -6,12 +6,12 @@ public class PlayerRayCasting : MonoBehaviour
     public float distanceToSee;
     public string ObjectName;
     private Color highlightColor;
-    Material originalMaterial, tempMaterial;
+    Material originalMaterial;
+    public Material tempMaterial;
     Renderer rend = null;
 
     void Start()
     {
-        highlightColor = Color.green;
     }
 
 
@@ -54,9 +54,9 @@ public class PlayerRayCasting : MonoBehaviour
 
             originalMaterial = rend.sharedMaterial;
 
-            tempMaterial = new Material(originalMaterial);
+            //tempMaterial = new Material(originalMaterial);
             rend.material = tempMaterial;
-            rend.material.color = highlightColor;
+            //rend.material.color = highlightColor;
         }
         else
         {
