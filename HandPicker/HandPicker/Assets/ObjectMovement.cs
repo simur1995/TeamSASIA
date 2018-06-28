@@ -53,7 +53,7 @@ public class ObjectMovement : MonoBehaviour
         {
             if (!heldGO.Contains(chosenObject.GetComponent<NodeLink>().Guid))
             {
-                Grab();
+                Grab(); 
             }
             else
             {
@@ -220,11 +220,11 @@ public class ObjectMovement : MonoBehaviour
         if (!grabbing)
         {
             ////GameObject.Find("DefaultNodeLink").SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
-            GameObject.Find("SceneLink").GetComponentInChildren<MessageManager>().SendMessage("LocalMessageManage", "Grabbed," + chosenObject.GetComponent<NodeLink>().Guid);
+            SceneLink.Instance.GetComponentInChildren<MessageManager>().SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
         }
         else
         {
-            GameObject.Find("SceneLink").GetComponentInChildren<MessageManager>().SendMessage("LocalMessageManage", "Dropped," + chosenObject.GetComponent<NodeLink>().Guid);
+            SceneLink.Instance.GetComponentInChildren<MessageManager>().SendMessage("Dropped", chosenObject.GetComponent<NodeLink>().Guid);
         }
         //else
         //{
