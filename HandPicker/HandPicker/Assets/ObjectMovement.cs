@@ -16,7 +16,8 @@ public class ObjectMovement : MonoBehaviour
     Material[] previous;
     Transform initialPosition;
     Vector3 worldPosition;
-
+    public delegate void JustGrabbed();
+    public event JustGrabbed YouJustGrabbed;
     private void Update()
     {
 
@@ -177,7 +178,8 @@ public class ObjectMovement : MonoBehaviour
     {
         if (!grabbing)
         {
-            GameObject.Find("SceneLink").SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
+            //GameObject.Find("DefaultNodeLink").SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
+
         }
         //else
         //{

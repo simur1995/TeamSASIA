@@ -6,9 +6,9 @@ using VertexUnityPlayer;
 public class MessageManager : MonoBehaviour {
     public List<string> heldGO = new List<string>();
     private string lastMessage;
+    NodeLink NL;
     // Use this for initialization
     void Start() {
-        GameObject.Find("SceneLink").AddComponent<NodeLink>();
     }
 
     // Update is called once per frame
@@ -19,9 +19,8 @@ public class MessageManager : MonoBehaviour {
     void Grabbed(string guid)
     {
         Debug.Log("REVEIVED");
-        NodeLink grabbedNL = GameObject.Find(guid).GetComponent<NodeLink>();
         heldGO.Add(guid);
-        GameObject.Find("SceneLink").GetComponent<NodeLink>().Fire("OnlineGrab", guid);
+        NL.Fire("OnlineGrab", guid);
         lastMessage = "OnlineGrab";
         Debug.Log("SENT");
     }
@@ -43,6 +42,14 @@ public class MessageManager : MonoBehaviour {
     void OnlineDrop(string guid)
     {
         heldGO.Remove(guid);
+    }
+
+    void NodeLink_Loaded()
+    {
+        NL = GetComponent<NodeLink>();
+        Debug.Log("Loaded");
+        Grabbed("1234");
+        //GameObject.Find("Player").GetComponent<ObjectMovement>()
     }
 
 }
