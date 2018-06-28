@@ -30,8 +30,6 @@ public class TimeOut : MonoBehaviour {
                     coords.Add(transform.GetChild(i).transform.position);
             }
         }
-        
-        
     }
 
     IEnumerator TimeOutRoutine()
@@ -65,13 +63,32 @@ public class TimeOut : MonoBehaviour {
             {
                 Debug.Log("user is same");
 
+                var selectedUser = gameObject.transform.GetChild(i);
+                Renderer[] rendererArray = selectedUser.GetComponentsInChildren<Renderer>();
+
+                if (rendererArray.Length > 0)
+                {
+                    foreach (Renderer r in selectedUser.GetComponentsInChildren<Renderer>())
+                    {
+                        r.enabled = false;
+                    }
+                }
             }
             else
             {
                 Debug.Log("user is different");
+
+                var selectedUser = gameObject.transform.GetChild(i);
+                Renderer[] rendererArray = selectedUser.GetComponentsInChildren<Renderer>();
+
+                if (rendererArray.Length > 0)
+                {
+                    foreach (Renderer r in selectedUser.GetComponentsInChildren<Renderer>())
+                    {
+                        r.enabled = true;
+                    }
+                }
             }
-            //playerCoords.Remove(playerCoords[i]);
-            //currentPlayerCoords.Remove(currentPlayerCoords[i]);
         }
 
         playerCoords.Clear();
