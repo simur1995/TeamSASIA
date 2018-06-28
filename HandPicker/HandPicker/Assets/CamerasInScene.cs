@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using VertexUnityPlayer;
 
 public class CamerasInScene : MonoBehaviour {
     public GameObject viewpoints;
@@ -20,10 +21,13 @@ public class CamerasInScene : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () {    
+        
         countPlayers = viewpoints.transform.childCount;
         numberofPlayers.text = "Number of Players: " + countPlayers.ToString();
-        countObjects = sceneLink.transform.childCount - countPlayers;
+        // countObjects = sceneLink.transform.childCount - countPlayers;
+        countObjects = sceneLink.GetComponentsInChildren<NodeLink>().Length;
         numberofObjects.text = "Number of Objects: " + countObjects.ToString();
     }
+   
 }
