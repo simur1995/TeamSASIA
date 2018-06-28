@@ -178,13 +178,11 @@ public class ObjectMovement : MonoBehaviour
     {
         if (!grabbing)
         {
-<<<<<<< HEAD
-            //GameObject.Find("DefaultNodeLink").SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
+            ////GameObject.Find("DefaultNodeLink").SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
+            GameObject.Find("SceneLink").GetComponentInChildren<MessageManager>().SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
 
-=======
-            GameObject.Find("SceneLink").SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
+            //GameObject.Find("SceneLink").SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
             
->>>>>>> 82b4db31b34c45fdc5ba2d3e6f679cd33461aedc
         }
         //else
         //{

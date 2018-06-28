@@ -49,6 +49,8 @@ public class MessageManager : MonoBehaviour {
         NL = GetComponent<NodeLink>();
         Debug.Log("Loaded");
         Grabbed("1234");
+        GameObject parent = transform.parent.gameObject;
+        Debug.Log(parent);
         //GameObject.Find("Player").GetComponent<ObjectMovement>()
     }
 
