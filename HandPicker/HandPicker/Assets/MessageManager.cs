@@ -48,6 +48,9 @@ public class MessageManager : MonoBehaviour {
         if(tempguid != guid)
         {
             heldGO.Remove(guid);
+        }
+        else
+        {
             tempguid = null;
         }
     }
