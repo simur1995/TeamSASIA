@@ -26,16 +26,9 @@ public class ObjectMovement : MonoBehaviour
         
         CanSnap();
 
-        if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly")
+        if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly" && !heldGO.Contains(chosenObject.GetComponent<NodeLink>().Guid))
         {
-            if (!heldGO.Contains(chosenObject.GetComponent<NodeLink>().Guid))
-            {
-                Grab();
-            }
-            else if (heldGO.Contains(chosenObject.GetComponent<NodeLink>().Guid))
-            {
-                alreadyGrabbed.text = "Another player is messing with that object!";
-            }
+          Grab();
         }
         if (grabbing)
         {

@@ -7,6 +7,7 @@ public class MessageManager : MonoBehaviour {
     private string lastMessage;
     NodeLink NL;
     List<string> heldGO;
+    string tempguid;
     // Use this for initialization
     void Start() {
     }
@@ -18,6 +19,7 @@ public class MessageManager : MonoBehaviour {
 
     void Grabbed(string guid)
     {
+        tempguid = guid;
         Debug.Log("REVEIVED");
         NL.Fire("OnlineGrab", guid);
         lastMessage = "OnlineGrab";
@@ -33,13 +35,21 @@ public class MessageManager : MonoBehaviour {
 
     void OnlineGrab(string guid)
     {
-        heldGO.Add(guid);
-        Debug.Log("RECEIVED");
+        if(tempguid != guid)
+        {
+            heldGO.Add(guid);
+            Debug.Log("RECEIVED");
+        }
+
     }
 
     void OnlineDrop(string guid)
     {
-        heldGO.Remove(guid);
+        if(tempguid != guid)
+        {
+            heldGO.Remove(guid);
+            tempguid = null;
+        }
     }
 
     void NodeLink_Loaded()
@@ -52,6 +62,15 @@ public class MessageManager : MonoBehaviour {
         heldGO = ObjectMovement.heldGO;
  
         //GameObject.Find("Player").GetComponent<ObjectMovement>()
+    }
+
+    //TODO get method name
+    void newconnention() //placeholder name
+    {
+        if(lastMessage == "OnlineGrab")
+        {
+            //NL.Fire(OnlineGrab);
+        }
     }
 
 }
