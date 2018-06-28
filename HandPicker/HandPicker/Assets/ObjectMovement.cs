@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ObjectMovement : MonoBehaviour
 {
-    public static List<string> heldGO = new List<string>();
+    public static List<MetaData> heldGO = new List<MetaData>();
     private GameObject chosenObject;
     static public bool grabbing = false;
     public KeyCode Scale, Rotate, MoveObject;

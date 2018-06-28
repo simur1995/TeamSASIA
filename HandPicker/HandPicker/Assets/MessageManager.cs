@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using VertexUnityPlayer;
 
+public class MetaData
+{
+    public string guid;
+    public string viewpointid;
+}
+
 public class MessageManager : MonoBehaviour {
     private string lastMessage;
     NodeLink NL;
-    List<string> heldGO;
+    List<MetaData> heldGO;
     string tempguid;
     // Use this for initialization
     void Start() {
@@ -17,37 +23,46 @@ public class MessageManager : MonoBehaviour {
 
     }
 
-    void Grabbed(string guid)
+    //this method takes a string organised as method,guid,viewpointid then creates a type metadata using last two and used the first to call the correct method
+    void LocalMessageManage(string message) 
     {
-        tempguid = guid;
-        Debug.Log("REVEIVED");
-        NL.Fire("OnlineGrab", guid);
+        string[] temp = message.Split(',');
+        MetaData fireData = new MetaData();
+        fireData.guid = temp[1];
+        fireData.viewpointid = temp[2];
+        NL.Fire(temp[0], fireData);
+
+    }
+
+    void Grabbed(MetaData fireInfo)
+    {
+        tempguid = fireInfo.guid;
+        NL.Fire("OnlineGrab", fireInfo);
         lastMessage = "OnlineGrab";
         Debug.Log("SENT");
     }
 
-    void Dropped(string guid)
+    void Dropped(MetaData FireInfo)
     {
         lastMessage = "Dropped";
-        GetComponent<NodeLink>().Fire("OnlineDrop", guid);
-        
+        NL.Fire("OnlineDrop", FireInfo);   
     }
 
-    void OnlineGrab(string guid)
+    void OnlineGrab(MetaData fireInfo)
     {
-        if(tempguid != guid)
+        if(tempguid != fireInfo.guid && !heldGO.Contains(fireInfo))
         {
-            heldGO.Add(guid);
+            heldGO.Add(fireInfo);
             Debug.Log("RECEIVED");
         }
 
     }
 
-    void OnlineDrop(string guid)
+    void OnlineDrop(MetaData fireInfo)
     {
-        if(tempguid != guid)
+        if(tempguid != fireInfo.guid)
         {
-            heldGO.Remove(guid);
+            heldGO.Remove(fireInfo);
         }
         else
         {
@@ -59,9 +74,6 @@ public class MessageManager : MonoBehaviour {
     {
         NL = GetComponent<NodeLink>();
         Debug.Log("Loaded");
-        Grabbed("1234");
-        GameObject parent = transform.parent.gameObject;
-        Debug.Log(parent);
         heldGO = ObjectMovement.heldGO;
  
         //GameObject.Find("Player").GetComponent<ObjectMovement>()
@@ -77,9 +89,15 @@ public class MessageManager : MonoBehaviour {
     }
 
     //TODO get methood name
-    void wtfisthiscalled2() //disconnect placeholder
+    void wtfisthiscalled2(string disconnectid) //disconnect placeholder
     {
-        //fake a connect to find out which guid's are still in use then remove the one that diddnt get back
-        NL.Fire("wtfisthiscalled", "1");
+        foreach (MetaData item in heldGO)
+        {
+            if(item.viewpointid == disconnectid)
+            {
+                heldGO.Remove(item);
+                break;
+            }
+        }
     }
 }
