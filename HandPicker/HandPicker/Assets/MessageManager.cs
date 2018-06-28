@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using VertexUnityPlayer;
 
-public class Messages : MonoBehaviour {
+public class MessageManager : MonoBehaviour {
     public List<string> heldGO = new List<string>();
     private string lastMessage;
     // Use this for initialization
     void Start() {
-
+        GameObject.Find("SceneLink").AddComponent<NodeLink>();
     }
 
     // Update is called once per frame
@@ -18,18 +18,20 @@ public class Messages : MonoBehaviour {
 
     void Grabbed(string guid)
     {
+        Debug.Log("REVEIVED");
         NodeLink grabbedNL = GameObject.Find(guid).GetComponent<NodeLink>();
         heldGO.Add(guid);
-        grabbedNL.Fire("OnlineGrab", guid);
+        GameObject.Find("SceneLink").GetComponent<NodeLink>().Fire("OnlineGrab", guid);
         lastMessage = "OnlineGrab";
         Debug.Log("SENT");
     }
 
-    void Dropped(NodeLink grabbedNL)
+    void Dropped(string guid)
     {
         lastMessage = "Dropped";
-        heldGO.Remove(grabbedNL.Guid);
-        grabbedNL.Fire("OnlineGrab", grabbedNL);
+        heldGO.Remove(guid);
+        GetComponent<NodeLink>().Fire("OnlineDrop", guid);
+        
     }
 
     void OnlineGrab(string guid)
@@ -38,9 +40,9 @@ public class Messages : MonoBehaviour {
         Debug.Log("RECEIVED");
     }
 
-    void OnlineDrop(NodeLink NL)
+    void OnlineDrop(string guid)
     {
-
+        heldGO.Remove(guid);
     }
 
 }
