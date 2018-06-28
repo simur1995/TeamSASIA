@@ -81,7 +81,13 @@ public class ObjectMovement : MonoBehaviour
                 {
                     if (snapBool && !(Input.GetKey(Scale)) && !(Input.GetKey(KeyCode.Joystick1Button2)))
                     {
-                        chosenObject.transform.Rotate(new Vector3(0, 45, 0));
+                        //chosenObject.transform.Rotate(new Vector3(0, Mathf.Round(chosenObject.transform.rotation.eulerAngles.y / 45) * 45, 0));
+
+                        var objRot = chosenObject.transform.rotation.eulerAngles;
+                        objRot.y = Mathf.Round(objRot.y % 45.0f) * 45.0f;
+
+                        chosenObject.transform.Rotate(new Vector3(0, objRot.y, 0));
+
                         snapBool = false;
 
                     }
@@ -101,7 +107,8 @@ public class ObjectMovement : MonoBehaviour
                 {
                     if (snapBool && !(Input.GetKey(Scale)) && !(Input.GetKey(KeyCode.Joystick1Button2)))
                     {
-                        chosenObject.transform.Rotate(new Vector3(0, -45, 0));
+                        //chosenObject.transform.Rotate(new Vector3(0, -45 - chosenObject.transform.localRotation.y, 0));
+                        chosenObject.transform.rotation = new Quaternion();
                         snapBool = false;
                         if (Input.GetAxis("Right Trigger") < 0.2)
                         {
