@@ -16,21 +16,16 @@ public class RigidBodyScript : MonoBehaviour
 
     void ScanObjects()
     {
-        Debug.Log("Scanning objects");
         numberOfObjects = gameObject.transform.childCount - 2;
     }
 
     void PopulateObjectList()
     {
-        Debug.Log("Populating list");
         vertxObjectList.Clear();
-        numberOfObjects = 0;
         foreach (Transform child in transform)
         {
-            Debug.Log(child.name);
             if (child.name != "Viewpoints" && child.name != "ViewPoint Follower")
             {
-                numberOfObjects++;
                 vertxObjectList.Add(child.gameObject);
             }
         }
@@ -39,14 +34,12 @@ public class RigidBodyScript : MonoBehaviour
 
     void AddRigidComponent()
     {
-        Debug.Log("Adding rigid components");
         foreach (GameObject model in vertxObjectList)
         {
             if(model.GetComponent<Rigidbody>() == null)
             {
                 model.AddComponent<Rigidbody>();
             }
-
         }
     }
 
@@ -56,11 +49,9 @@ public class RigidBodyScript : MonoBehaviour
         while (true)
         {
             loop++;
-            Debug.Log("Refresh process(" + loop + ") started");
             ScanObjects();
             PopulateObjectList();
             AddRigidComponent();
-            Debug.Log("Refresh process(" + loop + ") ended");
             yield return new WaitForSeconds(3);
         }
     }
