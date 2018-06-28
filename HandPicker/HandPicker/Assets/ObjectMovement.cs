@@ -22,6 +22,7 @@ public class ObjectMovement : MonoBehaviour
     public event JustGrabbed YouJustGrabbed;
     public Text alreadyGrabbed;
     private bool contains;
+    public string Name;
 
     private static Vector3 NearestWorldAxis(Vector3 v)
      {
@@ -229,14 +230,11 @@ public class ObjectMovement : MonoBehaviour
         if (!grabbing)
         {
             ////GameObject.Find("DefaultNodeLink").SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
-            GameObject.Find("SceneLink").GetComponentInChildren<MessageManager>().SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
-
-            //GameObject.Find("SceneLink").SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
-            
+            GameObject.Find("SceneLink").GetComponentInChildren<MessageManager>().SendMessage("LocalMessageManage", "Grabbed," + chosenObject.GetComponent<NodeLink>().Guid);
         }
         else
         {
-            GameObject.Find("SceneLink").GetComponentInChildren<MessageManager>().SendMessage("Dropped", chosenObject.GetComponent<NodeLink>().Guid);
+            GameObject.Find("SceneLink").GetComponentInChildren<MessageManager>().SendMessage("LocalMessageManage", "Dropped," + chosenObject.GetComponent<NodeLink>().Guid);
         }
         //else
         //{

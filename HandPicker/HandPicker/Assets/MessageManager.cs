@@ -14,6 +14,9 @@ public class MessageManager : MonoBehaviour {
     NodeLink NL;
     List<MetaData> heldGO;
     string tempguid;
+    public string userid;
+    public Dictionary<string, string> NameAndID;
+    private string tempViewPoint;
     // Use this for initialization
     void Start() {
     }
@@ -29,7 +32,7 @@ public class MessageManager : MonoBehaviour {
         string[] temp = message.Split(',');
         MetaData fireData = new MetaData();
         fireData.guid = temp[1];
-        fireData.viewpointid = temp[2];
+        fireData.viewpointid = userid;
         NL.Fire(temp[0], fireData);
 
     }
@@ -50,7 +53,7 @@ public class MessageManager : MonoBehaviour {
 
     void OnlineGrab(MetaData fireInfo)
     {
-        if(tempguid != fireInfo.guid && !heldGO.Contains(fireInfo))
+        if(name != fireInfo.viewpointid && !heldGO.Contains(fireInfo))
         {
             heldGO.Add(fireInfo);
             Debug.Log("RECEIVED");
@@ -60,13 +63,9 @@ public class MessageManager : MonoBehaviour {
 
     void OnlineDrop(MetaData fireInfo)
     {
-        if(tempguid != fireInfo.guid)
+        if(fireInfo.viewpointid != name)
         {
             heldGO.Remove(fireInfo);
-        }
-        else
-        {
-            tempguid = null;
         }
     }
 
@@ -75,21 +74,30 @@ public class MessageManager : MonoBehaviour {
         NL = GetComponent<NodeLink>();
         Debug.Log("Loaded");
         heldGO = ObjectMovement.heldGO;
+        NL.Fire("nameupdate", userid);
+        NameAndID = new Dictionary<string, string>();
  
         //GameObject.Find("Player").GetComponent<ObjectMovement>()
     }
 
+    void nameupdate(string userid)
+    {
+        NameAndID.Add(tempViewPoint, userid);
+    }
+
     //TODO get method name
-    void wtfisthiscalled() //connect placeholder
+    void ConnectPlaceHolder(string id) //connect placeholder
     {
         if(lastMessage == "OnlineGrab")
         {
             NL.Fire(lastMessage, tempguid);
         }
+
+        tempViewPoint = id;
     }
 
     //TODO get methood name
-    void wtfisthiscalled2(string disconnectid) //disconnect placeholder
+    void DisconnectPlaceHolder(string disconnectid) //disconnect placeholder
     {
         foreach (MetaData item in heldGO)
         {
@@ -99,5 +107,18 @@ public class MessageManager : MonoBehaviour {
                 break;
             }
         }
+    }
+
+    MetaData finduser(string username)
+    {
+        foreach (MetaData item in heldGO)
+        {
+            if(item.viewpointid == username)
+            {
+                return item;
+            }
+        }
+        Debug.Log("user does not exist");
+        return null;
     }
 }
