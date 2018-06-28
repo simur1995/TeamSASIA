@@ -5,13 +5,13 @@ using UnityEngine;
 public class TimeOut : MonoBehaviour {
 
    
-    List<Transform> playerCoords;
-    List<Transform> currentPlayerCoords;
+    List<Vector3> playerCoords;
+    List<Vector3> currentPlayerCoords;
 
 	// Use this for initialization
 	void Start () {
-        playerCoords = new List<Transform>();
-        currentPlayerCoords = new List<Transform>();
+        playerCoords = new List<Vector3>();
+        currentPlayerCoords = new List<Vector3>();
         StartCoroutine(TimeOutRoutine());
 
     }
@@ -21,16 +21,13 @@ public class TimeOut : MonoBehaviour {
 		
 	}
 
-    void findUsers(List<Transform> coords)
+    void findUsers(List<Vector3> coords)
     {
         for (int i =0; i < transform.childCount ; i++)
         {
             if (transform.GetChild(i) != null)
             {
-                    coords.Add(transform.GetChild(i).transform);
-                    //wait 2m
-                    Debug.Log("Getting coords of: " + coords.ToString());
-                    //destroy
+                    coords.Add(transform.GetChild(i).transform.position);
             }
         }
         
@@ -45,10 +42,11 @@ public class TimeOut : MonoBehaviour {
             loop++;
             findUsers(playerCoords);
 
-            
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(2);
 
             findUsers(currentPlayerCoords);
+
+            yield return new WaitForSeconds(2);
 
             CheckCoords();
 
@@ -63,7 +61,7 @@ public class TimeOut : MonoBehaviour {
 
         for (int i = 0; i < playerCoords.Count; i++)
         {
-            if (playerCoords[i].position == currentPlayerCoords[i].position)
+            if (playerCoords[i] == currentPlayerCoords[i])
             {
                 Debug.Log("user is same");
 
@@ -72,6 +70,8 @@ public class TimeOut : MonoBehaviour {
             {
                 Debug.Log("user is different");
             }
+            //playerCoords.Remove(playerCoords[i]);
+            //currentPlayerCoords.Remove(currentPlayerCoords[i]);
         }
 
         playerCoords.Clear();
