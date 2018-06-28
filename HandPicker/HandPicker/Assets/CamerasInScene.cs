@@ -26,8 +26,9 @@ public class CamerasInScene : MonoBehaviour {
         countPlayers = viewpoints.transform.childCount;
         numberofPlayers.text = "Number of Players: " + countPlayers.ToString();
         // countObjects = sceneLink.transform.childCount - countPlayers;
-        countObjects = sceneLink.GetComponentsInChildren<NodeLink>().Length;
+        countObjects = sceneLink.GetComponentsInChildren<NodeLink>().Length - 1;
         numberofObjects.text = "Number of Objects: " + countObjects.ToString();
+        
     }
    
 }
