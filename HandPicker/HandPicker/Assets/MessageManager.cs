@@ -4,22 +4,14 @@ using UnityEngine;
 using VertexUnityPlayer;
 
 
-public class MessageManager : MonoBehaviour {
+public class MessageManager : SingletonPattern<MessageManager>
+{
     private string lastMessage;
-    NodeLink NL;
-    string tempguid;
+    //NodeLink NL;
+    public string Tempguid;
     public string userid;
     public Dictionary<string, string> NameAndID;
     private string tempViewPoint;
-    List<string> heldGO;
-    // Use this for initialization
-    void Start() {
-    }
-
-    // Update is called once per frame
-    void Update() {
-
-    }
 
     //this method takes a string organised as method,guid,viewpointid then creates a type metadata using last two and used the first to call the correct method
     //void LocalMessageManage(string message) 
@@ -34,7 +26,8 @@ public class MessageManager : MonoBehaviour {
 
     void Grabbed(string guid)
     {
-        tempguid = guid;
+        NodeLink NL = NodeLink.Find(guid);
+        Tempguid = guid;
         NL.Fire("OnlineGrab", guid);
         lastMessage = "OnlineGrab";
         Debug.Log("SENT");
@@ -42,38 +35,20 @@ public class MessageManager : MonoBehaviour {
 
     void Dropped(string guid)
     {
+        NodeLink NL = NodeLink.Find(guid);
         lastMessage = "Dropped";
         NL.Fire("OnlineDrop", guid);   
     }
 
-    void OnlineGrab(string guid)
-    {
-        if(tempguid != guid && !heldGO.Contains(guid))
-        {
-            heldGO.Add(guid);   
-        }
-        Debug.Log("RECEIVED");
-
-    }
-
-    void OnlineDrop(string guid)
-    {
-        if(guid != tempguid)
-        {
-            heldGO.Remove(guid);
-        }
-    }
-
-    void NodeLink_Loaded()
-    {
-        NL = GetComponent<NodeLink>();
-        Debug.Log("Loaded");
-        heldGO = ObjectMovement.heldGO;
-        NL.Fire("nameupdate", userid);
-        NameAndID = new Dictionary<string, string>();
+    //void NodeLink_Loaded()
+    //{
+    //    NodeLink NL = GameObject.Find(guid).GetComponent<NodeLink>();
+    //    Debug.Log("Loaded");
+    //    NL.Fire("nameupdate", userid);
+    //    NameAndID = new Dictionary<string, string>();
  
-        //GameObject.Find("Player").GetComponent<ObjectMovement>()
-    }
+    //    //GameObject.Find("Player").GetComponent<ObjectMovement>()
+    //}
 
     //void nameupdate(string userid)
     //{
@@ -81,15 +56,16 @@ public class MessageManager : MonoBehaviour {
     //}
 
     //TODO get method name
-    void ConnectPlaceHolder(string id) //connect placeholder
-    {
-        if(lastMessage == "OnlineGrab")
-        {
-            NL.Fire(lastMessage, tempguid);
-        }
+    //void ConnectPlaceHolder(string id) //connect placeholder
+    //{
+    //    if(lastMessage == "OnlineGrab")
+    //    {
+    //        NodeLink NL = GameObject.Find(guid).GetComponent<NodeLink>();
+    //        NL.Fire(lastMessage, tempguid);
+    //    }
 
-        tempViewPoint = id;
-    }
+    //    tempViewPoint = id;
+    //}
 
     //TODO get methood name
     void DisconnectPlaceHolder(string disconnectid) //disconnect placeholder
