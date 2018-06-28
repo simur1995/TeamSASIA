@@ -12,7 +12,7 @@ public class RigidBodyScript : MonoBehaviour
     void Start()
     {
         vertxObjectList = new List<GameObject>();
-        StartCoroutine();
+        StartCoroutine(RefreshObjectList());
     }
 
     // Update is called once per frame
