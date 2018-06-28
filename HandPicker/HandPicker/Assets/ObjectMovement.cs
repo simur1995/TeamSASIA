@@ -26,9 +26,18 @@ public class ObjectMovement : MonoBehaviour
         
         CanSnap();
 
-        if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly" && !heldGO.Contains(chosenObject.GetComponent<NodeLink>().Guid))
+        if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly")
         {
-          Grab();
+            if (!heldGO.Contains(chosenObject.GetComponent<NodeLink>().Guid))
+            {
+                Grab();
+           
+                
+            }
+            else
+            {
+                alreadyGrabbed.text = "Someone else is messing with that object!";
+            }
         }
         if (grabbing)
         {
@@ -152,7 +161,7 @@ public class ObjectMovement : MonoBehaviour
             chosenRenderer[i].sharedMaterial = previous[i];
         }
 
-
+        alreadyGrabbed.text = null;
         if (!grabbing)
         {
             chosenObject = null;
