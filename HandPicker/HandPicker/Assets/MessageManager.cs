@@ -68,12 +68,18 @@ public class MessageManager : MonoBehaviour {
     }
 
     //TODO get method name
-    void newconnention() //placeholder name
+    void wtfisthiscalled() //connect placeholder
     {
         if(lastMessage == "OnlineGrab")
         {
-            //NL.Fire(OnlineGrab);
+            NL.Fire(lastMessage, tempguid);
         }
     }
 
+    //TODO get methood name
+    void wtfisthiscalled2() //disconnect placeholder
+    {
+        //fake a connect to find out which guid's are still in use then remove the one that diddnt get back
+        NL.Fire("wtfisthiscalled", "1")
+    }
 }
