@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VertexUnityPlayer;
+using UnityEngine.UI;
 
 public class ObjectMovement : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class ObjectMovement : MonoBehaviour
     Vector3 worldPosition;
     public delegate void JustGrabbed();
     public event JustGrabbed YouJustGrabbed;
+    public Text alreadyGrabbed;
     private void Update()
     {
         
@@ -27,6 +29,9 @@ public class ObjectMovement : MonoBehaviour
         if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly" && !heldGO.Contains(chosenObject.GetComponent<NodeLink>().Guid))
         {
             Grab();
+        } else if (heldGO.Contains(chosenObject.GetComponent<NodeLink>().Guid))
+        {
+            alreadyGrabbed.text = "Another player is messing with that object!";
         }
 
         if (grabbing)
