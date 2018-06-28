@@ -82,6 +82,8 @@ public class ObjectMovement : MonoBehaviour
                     if (snapBool && !(Input.GetKey(Scale)) && !(Input.GetKey(KeyCode.Joystick1Button2)))
                     {
                         chosenObject.transform.Rotate(new Vector3(0, 45, 0));
+                        
+
                         snapBool = false;
 
                     }

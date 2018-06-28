@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class CamerasInScene : MonoBehaviour {
     public GameObject viewpoints;
-    private int count;
+    public GameObject sceneLink;
+    private int countPlayers;
+    private int countObjects;
     public Text numberofPlayers;
+    public Text numberofObjects;
 
     
     // Use this for initialization
@@ -18,7 +21,9 @@ public class CamerasInScene : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        count = viewpoints.transform.childCount;
-        numberofPlayers.text = "Number of Players: " + count.ToString();        
+        countPlayers = viewpoints.transform.childCount;
+        numberofPlayers.text = "Number of Players: " + countPlayers.ToString();
+        countObjects = sceneLink.transform.childCount - countPlayers;
+        numberofObjects.text = "Number of Objects: " + countObjects.ToString();
     }
 }
