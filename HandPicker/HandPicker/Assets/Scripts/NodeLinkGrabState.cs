@@ -12,7 +12,6 @@ public class NodeLinkGrabState : MonoBehaviour {
         }
         Debug.Log("RECEIVED");
         MessageManager.Instance.Tempguid = null;
-
     }
 
     void OnlineDrop(string guid)
@@ -22,5 +21,4 @@ public class NodeLinkGrabState : MonoBehaviour {
             ObjectMovement.heldGO.Remove(guid);
         }
     }
-
 }

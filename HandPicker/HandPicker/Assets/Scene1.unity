@@ -455,6 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76b207a1a5c30c45843f28b154b2230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tempguid: 
   userid: 
 --- !u!4 &509403690
 Transform:
@@ -573,7 +574,18 @@ MonoBehaviour:
   ServiceUrl: https://staging.vertx.cloud
   OnAuthenticated:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1058937517}
+        m_MethodName: Connect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1058937517
@@ -597,7 +609,7 @@ MonoBehaviour:
   ViewpointHost: {fileID: 0}
   SceneLinkState: {fileID: 0}
   GltfLoader: {fileID: 11400000, guid: cc27c22717cb1a040a1697733c732c78, type: 2}
-  AutoConnect: 1
+  AutoConnect: 0
 --- !u!4 &1058937518
 Transform:
   m_ObjectHideFlags: 0
@@ -665,7 +677,6 @@ GameObject:
   - component: {fileID: 1404041280}
   - component: {fileID: 1404041279}
   - component: {fileID: 1404041277}
-  - component: {fileID: 1404041285}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -785,20 +796,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1404041285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1404041276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 091ca53bd3f62be41a6d469a1cc13543, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distanceToSee: 15
-  ObjectName: 
-  tempMaterial: {fileID: 0}
 --- !u!1 &1662797732
 GameObject:
   m_ObjectHideFlags: 0
