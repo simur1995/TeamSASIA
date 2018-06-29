@@ -599,7 +599,7 @@ MonoBehaviour:
   m_Script: {fileID: -776688615, guid: 48a546079598c9a4891e6a1695694683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneId: 8b19851c-a124-4c35-81b9-095fdecd1e1a
+  SceneId: af143bfa-b080-4dbc-ac2f-d891cadba1cd
   SceneIdSet: 0
   ViewpointId: 
   SceneAssets: []
@@ -742,7 +742,6 @@ MonoBehaviour:
   MoveObject: 32
   ScaleSpeed: 1
   SnapDegrees: 1
-  publicMaterial: {fileID: 2100000, guid: 5d69df9d9d11e49d110086ba44295342, type: 2}
   alreadyGrabbed: {fileID: 243481998}
   Name: 
 --- !u!23 &1404041281

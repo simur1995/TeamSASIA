@@ -21,9 +21,16 @@ public class CamerasInScene : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {    
-        
-        countPlayers = viewpoints.transform.childCount;
+	void Update () {
+        foreach (Renderer r in viewpoints.transform.GetComponentsInChildren<Renderer>())
+        {
+            if (r.enabled == true)
+               countPlayers++;
+        }
+        countPlayers = countPlayers/2;
+        countPlayers++;
+        //countPlayers = viewpoints.transform.childCount;
+       // countPlayers = viewpoints.transform.GetComponentsInChildren<Renderer>()..Length;
         numberofPlayers.text = "Number of Players: " + countPlayers.ToString();
         // countObjects = sceneLink.transform.childCount - countPlayers;
         countObjects = sceneLink.GetComponentsInChildren<NodeLink>().Length ;
