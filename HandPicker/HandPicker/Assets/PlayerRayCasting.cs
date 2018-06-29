@@ -9,6 +9,7 @@ public class PlayerRayCasting : MonoBehaviour
     Material originalMaterial;
     public Material tempMaterial;
     Renderer rend = null;
+    public Material usethis;
 
     void Start()
     {
@@ -54,7 +55,8 @@ public class PlayerRayCasting : MonoBehaviour
 
             originalMaterial = rend.sharedMaterial;
 
-            tempMaterial = new Material(originalMaterial);
+            tempMaterial = new Material(usethis);
+             
             rend.material = tempMaterial;
             rend.material.color = highlightColor;
         }
