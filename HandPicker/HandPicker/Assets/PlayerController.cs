@@ -33,14 +33,10 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetAxis("Vertical") < -0.5 )
         {
-            //transform.position += Vector3.forward * Time.deltaTime * SPEED;
-
             transform.Translate(Time.deltaTime * MOVESPEED * Vector3.forward);
         }
         if (Input.GetAxis("Vertical") > 0.5 )
         {
-            //transform.position += Vector3.back * Time.deltaTime * SPEED;
-
             transform.Translate(Time.deltaTime * MOVESPEED *Vector3.back);
         }
 

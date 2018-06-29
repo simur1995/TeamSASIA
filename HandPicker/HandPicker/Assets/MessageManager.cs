@@ -13,17 +13,6 @@ public class MessageManager : SingletonPattern<MessageManager>
     public Dictionary<string, string> NameAndID;
     //private string tempViewPoint;
 
-    //this method takes a string organised as method,guid,viewpointid then creates a type metadata using last two and used the first to call the correct method
-    //void LocalMessageManage(string message) 
-    //{
-    //    string[] temp = message.Split(',');
-    //    MetaData fireData = new MetaData();
-    //    fireData.guid = temp[1];
-    //    fireData.viewpointid = userid;
-    //    NL.SendMessage(temp[0], fireData);
-
-    //}
-
     void Grabbed(string guid)
     {
         NodeLink NL = NodeLink.Find(guid);
