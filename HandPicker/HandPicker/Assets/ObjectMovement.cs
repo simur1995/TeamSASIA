@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using VertexUnityPlayer;
+using UnityEngine.UI;
 
 public class ObjectMovement : MonoBehaviour
 {
+    public static List<string> heldGO = new List<string>();
     private GameObject chosenObject;
     static public bool grabbing = false;
     public KeyCode Scale, Rotate, MoveObject;
@@ -16,19 +18,51 @@ public class ObjectMovement : MonoBehaviour
     Material[] previous;
     Transform initialPosition;
     Vector3 worldPosition;
+    public delegate void JustGrabbed();
+    public event JustGrabbed YouJustGrabbed;
+    public Text alreadyGrabbed;
+    public string Name;
+
+    private static Vector3 NearestWorldAxis(Vector3 v)
+     {
+         if (Mathf.Abs(v.x) < Mathf.Abs(v.y))
+         {
+             v.x = 0;
+             if (Mathf.Abs(v.y) < Mathf.Abs(v.z))
+                 v.y = 0;
+             else
+                 v.z = 0;
+         }
+         else
+         {
+             v.y = 0;
+             if (Mathf.Abs(v.x) < Mathf.Abs(v.z))
+                 v.x = 0;
+             else
+                 v.z = 0;
+         }
+         return v;
+     }
 
     private void Update()
     {
-
+        
         CanSnap();
+
         if (Input.GetKeyUp(MoveObject) && chosenObject.tag != "EditorOnly")
         {
-            Grab();
+            if (!heldGO.Contains(chosenObject.GetComponent<NodeLink>().Guid))
+            {
+                Grab(); 
+            }
+            else
+            {
+                alreadyGrabbed.text = "Someone else is messing with that object!";
+            }
         }
-
         if (grabbing)
         {
-
+            //Restore transformations
             if (Input.GetKeyDown(KeyCode.Joystick1Button6))
             {
                 chosenObject.transform.localRotation = initialPosition.localRotation;
@@ -40,6 +74,7 @@ public class ObjectMovement : MonoBehaviour
 
                 return;
             }
+
             //position
             chosenObject.transform.position = transform.position;
 
@@ -54,50 +89,13 @@ public class ObjectMovement : MonoBehaviour
             }
 
             //Rotation
-            if (Input.GetKey(Rotate) && Input.GetAxis("Left Trigger") > 0)
-            {
-                chosenObject.transform.Rotate(new Vector3(0, -SnapDegrees, 0));
-            }
-            if (Input.GetKey(Rotate) && Input.GetAxis("Right Trigger") > 0)
-            {
-                chosenObject.transform.Rotate(new Vector3(0, SnapDegrees, 0));
-            }
-
-
-            //Rotation With Snap
-
-
+            #region
             if (Input.GetAxis("Left Trigger") > 0)
             {
+
                 if (Input.GetKey(KeyCode.Joystick1Button2))
                 {
                     chosenObject.transform.Rotate(new Vector3(0, 0, -SnapDegrees));
-                }
-                if (Input.GetKey(Rotate))
-                {
-                    chosenObject.transform.Rotate(new Vector3(0, -SnapDegrees, 0));
-                }
-                else
-                {
-                    if (snapBool && !(Input.GetKey(Scale)) && !(Input.GetKey(KeyCode.Joystick1Button2)))
-                    {
-                        //chosenObject.transform.Rotate(new Vector3(0, Mathf.Round(chosenObject.transform.rotation.eulerAngles.y / 45) * 45, 0));
-
-                        var objRot = chosenObject.transform.rotation.eulerAngles;
-                        objRot.y = Mathf.Round(objRot.y % 45.0f) * 45.0f;
-
-                        chosenObject.transform.Rotate(new Vector3(0, objRot.y, 0));
-
-                        snapBool = false;
-
-                    }
-                }
-            }
-            if (Input.GetAxis("Right Trigger") > 0)
-            {
-                if (Input.GetKey(KeyCode.Joystick1Button2))
-                {
-                    chosenObject.transform.Rotate(new Vector3(0, 0, SnapDegrees));
                 }
                 if (Input.GetKey(Rotate))
                 {
@@ -107,8 +105,39 @@ public class ObjectMovement : MonoBehaviour
                 {
                     if (snapBool && !(Input.GetKey(Scale)) && !(Input.GetKey(KeyCode.Joystick1Button2)))
                     {
-                        //chosenObject.transform.Rotate(new Vector3(0, -45 - chosenObject.transform.localRotation.y, 0));
-                        chosenObject.transform.rotation = new Quaternion();
+                        
+                        Vector3 alignedForward = NearestWorldAxis(transform.forward);
+                        Vector3 alignedUp = NearestWorldAxis(transform.up);
+                        chosenObject.transform.rotation = Quaternion.LookRotation(alignedForward, alignedUp);
+                        chosenObject.transform.Rotate(NearestWorldAxis(transform.up));
+                       chosenObject.transform.Rotate(new Vector3(0, 45, 0));
+
+                        snapBool = false;
+
+                    }
+                }
+            }
+            if (Input.GetAxis("Right Trigger") > 0)
+            {
+
+                if (Input.GetKey(KeyCode.Joystick1Button2))
+                {
+                    chosenObject.transform.Rotate(new Vector3(0, 0,SnapDegrees));
+                }
+                if (Input.GetKey(Rotate))
+                {
+                    chosenObject.transform.Rotate(new Vector3(0, -SnapDegrees, 0));
+                }
+                else
+                {
+                    if (snapBool && !(Input.GetKey(Scale)) && !(Input.GetKey(KeyCode.Joystick1Button2)))
+                    {
+                        Vector3 alignedForward = NearestWorldAxis(transform.forward);
+                        Vector3 alignedUp = NearestWorldAxis(transform.up);
+                        chosenObject.transform.rotation = Quaternion.LookRotation(alignedForward, alignedUp);
+                        chosenObject.transform.Rotate(NearestWorldAxis(transform.forward));
+                        
+                        chosenObject.transform.Rotate(new Vector3(0, -45, 0));
                         snapBool = false;
                         if (Input.GetAxis("Right Trigger") < 0.2)
                         {
@@ -117,6 +146,7 @@ public class ObjectMovement : MonoBehaviour
                     }
                 }
             }
+            #endregion
         }
     }
 
@@ -160,6 +190,13 @@ public class ObjectMovement : MonoBehaviour
         {
             chosenRenderer[i].sharedMaterial = previous[i];
         }
+
+        alreadyGrabbed.text = null;
+        if (!grabbing)
+        {
+            chosenObject = null;
+        }
+
     }
 
     private void OnTriggerStay(Collider collision)
@@ -182,12 +219,17 @@ public class ObjectMovement : MonoBehaviour
     {
         if (!grabbing)
         {
-            SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
+            ////GameObject.Find("DefaultNodeLink").SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
+            MessageManager.Instance.SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
+        }
+        else
+        {
+            MessageManager.Instance.SendMessage("Dropped", chosenObject.GetComponent<NodeLink>().Guid);
         }
         //else
         //{
         //    SendMessage("Dropped", chosenObject.GetComponent<NodeLink>());
-        //}
+       // }
         if (grabbing && !Input.GetKey(KeyCode.Joystick1Button6))
         {
             PlaceOnFloor();
