@@ -713,7 +713,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceToSee: 20
   ObjectName: 
-  tempMaterial: {fileID: 0}
+  tempMaterial: {fileID: 2100000, guid: 5d69df9d9d11e49d110086ba44295342, type: 2}
+  usethis: {fileID: 2100000, guid: 5d69df9d9d11e49d110086ba44295342, type: 2}
 --- !u!114 &1404041279
 MonoBehaviour:
   m_ObjectHideFlags: 0
