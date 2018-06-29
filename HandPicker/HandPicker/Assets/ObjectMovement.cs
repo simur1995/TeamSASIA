@@ -12,7 +12,7 @@ public class ObjectMovement : MonoBehaviour
     public KeyCode Scale, Rotate, MoveObject;
     public float ScaleSpeed, SnapDegrees;
     bool snapBool = true;
-    public Material publicMaterial;
+    public static Material publicMaterial;
     private Material[] matArray = new Material[2];
     private Renderer[] chosenRenderer;
     Material[] previous;
