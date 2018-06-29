@@ -40,21 +40,6 @@ public class MessageManager : SingletonPattern<MessageManager>
         NL.Fire("OnlineDrop", guid);   
     }
 
-    //void NodeLink_Loaded()
-    //{
-    //    NodeLink NL = GameObject.Find(guid).GetComponent<NodeLink>();
-    //    Debug.Log("Loaded");
-    //    NL.Fire("nameupdate", userid);
-    //    NameAndID = new Dictionary<string, string>();
- 
-    //    //GameObject.Find("Player").GetComponent<ObjectMovement>()
-    //}
-
-    //void nameupdate(string userid)
-    //{
-    //    NameAndID.Add(tempViewPoint, userid);
-    //}
-
     //TODO get method name
     //void ConnectPlaceHolder(string id) //connect placeholder
     //{
@@ -67,8 +52,4 @@ public class MessageManager : SingletonPattern<MessageManager>
     //    tempViewPoint = id;
     //}
 
-    //TODO get methood name
-    void DisconnectPlaceHolder(string disconnectid) //disconnect placeholder
-    {
-    }
 }
