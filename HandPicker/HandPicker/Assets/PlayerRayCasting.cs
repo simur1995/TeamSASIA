@@ -55,12 +55,10 @@ public class PlayerRayCasting : MonoBehaviour
 
             originalMaterial = rend.sharedMaterial;
 
-<<<<<<< HEAD
-            tempMaterial = new Material(originalMaterial);
-=======
+
+
             tempMaterial = new Material(usethis);
              
->>>>>>> 4de72dfb9c50abe4ebbf81bbac88cbfeaab6b1f6
             rend.material = tempMaterial;
             rend.material.color = highlightColor;
         }
