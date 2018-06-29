@@ -12,7 +12,7 @@ public class ObjectMovement : MonoBehaviour
     public KeyCode Scale, Rotate, MoveObject;
     public float ScaleSpeed, SnapDegrees;
     bool snapBool = true;
-    public Material publicMaterial;
+    public static Material publicMaterial;
     private Material[] matArray = new Material[2];
     private Renderer[] chosenRenderer;
     Material[] previous;
@@ -69,7 +69,6 @@ public class ObjectMovement : MonoBehaviour
                 chosenObject.transform.localScale = initialPosition.localScale;
                 chosenObject.transform.position = worldPosition;
 
-                Debug.Log("Back pressed!");
                 Grab();
 
                 return;
@@ -146,7 +145,6 @@ public class ObjectMovement : MonoBehaviour
                     }
                 }
             }
-            #endregion
         }
     }
 
@@ -180,12 +178,10 @@ public class ObjectMovement : MonoBehaviour
                 chosenRenderer[i].sharedMaterial = publicMaterial;
             }
         }
-        //Debug.Log((initialPosition.transform.position).ToString());
     }
-
+    #endregion
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Exited Trigger");
         for (int i = 0; i < chosenRenderer.Length; i++)
         {
             chosenRenderer[i].sharedMaterial = previous[i];
@@ -219,17 +215,12 @@ public class ObjectMovement : MonoBehaviour
     {
         if (!grabbing)
         {
-            ////GameObject.Find("DefaultNodeLink").SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
             MessageManager.Instance.SendMessage("Grabbed", chosenObject.GetComponent<NodeLink>().Guid);
         }
         else
         {
             MessageManager.Instance.SendMessage("Dropped", chosenObject.GetComponent<NodeLink>().Guid);
         }
-        //else
-        //{
-        //    SendMessage("Dropped", chosenObject.GetComponent<NodeLink>());
-       // }
         if (grabbing && !Input.GetKey(KeyCode.Joystick1Button6))
         {
             PlaceOnFloor();
@@ -246,21 +237,7 @@ public class ObjectMovement : MonoBehaviour
     }
 
     void PlaceOnFloor()
-    {
-        //RaycastHit hitinfo;
-        //if (Physics.Raycast(new Ray(chosenObject.transform.position, Vector3.down), out hitinfo, float.MaxValue, 1 << LayerMask.NameToLayer("Floor")))
-        //{
-
-        //    chosenObject.transform.position = hitinfo.point;
-        //    float colliderDifference = chosenObject.transform.position.y - chosenObject.GetComponentInChildren<Collider>().ClosestPointOnBounds(hitinfo.point).y;
-        //    Vector3 newPosition = new Vector3(hitinfo.point.x, hitinfo.point.y + colliderDifference, hitinfo.point.z);
-        //    chosenObject.transform.position = newPosition;
-        //}
-        //else
-        //{
-        //    Debug.Log("Couldn't find the floor");
-        //}
-        
+    {   
         if(chosenObject.GetComponent<RemoveRB>() == null)
         {
             chosenObject.AddComponent<RemoveRB>();
@@ -271,9 +248,6 @@ public class ObjectMovement : MonoBehaviour
            rb = chosenObject.AddComponent<Rigidbody>();
         }
         rb.useGravity = true;
-
-
-
     }
 }
 
