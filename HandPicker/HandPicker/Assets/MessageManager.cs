@@ -6,7 +6,7 @@ using VertexUnityPlayer;
 
 public class MessageManager : SingletonPattern<MessageManager>
 {
-    //private string lastMessage;
+    private string lastMessage;
     //NodeLink NL;
     public string Tempguid;
     public string userid;
@@ -29,14 +29,14 @@ public class MessageManager : SingletonPattern<MessageManager>
         NodeLink NL = NodeLink.Find(guid);
         Tempguid = guid;
         NL.Fire("OnlineGrab", guid);
-        //lastMessage = "OnlineGrab";
+        lastMessage = "OnlineGrab";
         Debug.Log("SENT");
     }
 
     void Dropped(string guid)
     {
         NodeLink NL = NodeLink.Find(guid);
-        //lastMessage = "Dropped";
+        lastMessage = "Dropped";
         NL.Fire("OnlineDrop", guid);   
     }
 
