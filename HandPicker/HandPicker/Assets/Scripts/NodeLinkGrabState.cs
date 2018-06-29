@@ -11,6 +11,7 @@ public class NodeLinkGrabState : MonoBehaviour {
             ObjectMovement.heldGO.Add(guid);
         }
         Debug.Log("RECEIVED");
+        MessageManager.Instance.Tempguid = null;
 
     }
 

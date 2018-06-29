@@ -6,12 +6,12 @@ using VertexUnityPlayer;
 
 public class MessageManager : SingletonPattern<MessageManager>
 {
-    private string lastMessage;
+    //private string lastMessage;
     //NodeLink NL;
     public string Tempguid;
     public string userid;
     public Dictionary<string, string> NameAndID;
-    private string tempViewPoint;
+    //private string tempViewPoint;
 
     //this method takes a string organised as method,guid,viewpointid then creates a type metadata using last two and used the first to call the correct method
     //void LocalMessageManage(string message) 
@@ -29,14 +29,14 @@ public class MessageManager : SingletonPattern<MessageManager>
         NodeLink NL = NodeLink.Find(guid);
         Tempguid = guid;
         NL.Fire("OnlineGrab", guid);
-        lastMessage = "OnlineGrab";
+        //lastMessage = "OnlineGrab";
         Debug.Log("SENT");
     }
 
     void Dropped(string guid)
     {
         NodeLink NL = NodeLink.Find(guid);
-        lastMessage = "Dropped";
+        //lastMessage = "Dropped";
         NL.Fire("OnlineDrop", guid);   
     }
 
