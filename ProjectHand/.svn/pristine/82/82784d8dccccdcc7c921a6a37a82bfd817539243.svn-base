@@ -1,0 +1,248 @@
+fileFormatVersion: 2
+guid: b91e6fe59b7bfc643a6fe7ae31b67c9d
+timeCreated: 1530027647
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: joint1
+    100004: joint10
+    100006: joint10_Ctrl
+    100008: joint10_Ctrl_group
+    100010: joint10_null
+    100012: joint11
+    100014: joint12
+    100016: joint12_Ctrl
+    100018: joint12_Ctrl_group
+    100020: joint12_null
+    100022: joint13
+    100024: joint13_Ctrl
+    100026: joint13_Ctrl_group
+    100028: joint13_null
+    100030: joint14
+    100032: joint14_Ctrl
+    100034: joint14_Ctrl_group
+    100036: joint14_null
+    100038: joint15
+    100040: joint16
+    100042: joint16_Ctrl
+    100044: joint16_Ctrl_group
+    100046: joint16_null
+    100048: joint17
+    100050: joint17_Ctrl
+    100052: joint17_Ctrl_group
+    100054: joint17_null
+    100056: joint18
+    100058: joint18_Ctrl
+    100060: joint18_Ctrl_group
+    100062: joint18_null
+    100064: joint19
+    100066: joint2
+    100068: joint20_Ctrl_group
+    100070: joint20_null
+    100072: joint22_Ctrl_group
+    100074: joint22_null
+    100076: joint23
+    100078: joint23_Ctrl
+    100080: joint23_Ctrl_group
+    100082: joint23_null
+    100084: joint24
+    100086: joint24_Ctrl
+    100088: joint24_Ctrl_group
+    100090: joint24_null
+    100092: joint25
+    100094: joint25_Ctrl
+    100096: joint25_Ctrl_group
+    100098: joint25_null
+    100100: joint26
+    100102: joint3
+    100104: joint3_Ctrl
+    100106: joint3_Ctrl_group
+    100108: joint3_null
+    100110: joint4
+    100112: joint4_Ctrl
+    100114: joint4_Ctrl_group
+    100116: joint4_null
+    100118: joint5
+    100120: joint5_Ctrl
+    100122: joint5_Ctrl_group
+    100124: joint5_null
+    100126: joint6
+    100128: joint7
+    100130: joint8
+    100132: joint8_Ctrl
+    100134: joint8_Ctrl_group
+    100136: joint8_null
+    100138: joint9
+    100140: joint9_Ctrl
+    100142: joint9_Ctrl_group
+    100144: joint9_null
+    100146: nurbsCircle2_Ctrl_Ctrl_group
+    100148: nurbsCircle2_Ctrl_null
+    100150: nurbsCircle2_null
+    100152: nurbsCircle2_null1
+    100154: pCube6
+    400000: //RootNode
+    400002: joint1
+    400004: joint10
+    400006: joint10_Ctrl
+    400008: joint10_Ctrl_group
+    400010: joint10_null
+    400012: joint11
+    400014: joint12
+    400016: joint12_Ctrl
+    400018: joint12_Ctrl_group
+    400020: joint12_null
+    400022: joint13
+    400024: joint13_Ctrl
+    400026: joint13_Ctrl_group
+    400028: joint13_null
+    400030: joint14
+    400032: joint14_Ctrl
+    400034: joint14_Ctrl_group
+    400036: joint14_null
+    400038: joint15
+    400040: joint16
+    400042: joint16_Ctrl
+    400044: joint16_Ctrl_group
+    400046: joint16_null
+    400048: joint17
+    400050: joint17_Ctrl
+    400052: joint17_Ctrl_group
+    400054: joint17_null
+    400056: joint18
+    400058: joint18_Ctrl
+    400060: joint18_Ctrl_group
+    400062: joint18_null
+    400064: joint19
+    400066: joint2
+    400068: joint20_Ctrl_group
+    400070: joint20_null
+    400072: joint22_Ctrl_group
+    400074: joint22_null
+    400076: joint23
+    400078: joint23_Ctrl
+    400080: joint23_Ctrl_group
+    400082: joint23_null
+    400084: joint24
+    400086: joint24_Ctrl
+    400088: joint24_Ctrl_group
+    400090: joint24_null
+    400092: joint25
+    400094: joint25_Ctrl
+    400096: joint25_Ctrl_group
+    400098: joint25_null
+    400100: joint26
+    400102: joint3
+    400104: joint3_Ctrl
+    400106: joint3_Ctrl_group
+    400108: joint3_null
+    400110: joint4
+    400112: joint4_Ctrl
+    400114: joint4_Ctrl_group
+    400116: joint4_null
+    400118: joint5
+    400120: joint5_Ctrl
+    400122: joint5_Ctrl_group
+    400124: joint5_null
+    400126: joint6
+    400128: joint7
+    400130: joint8
+    400132: joint8_Ctrl
+    400134: joint8_Ctrl_group
+    400136: joint8_null
+    400138: joint9
+    400140: joint9_Ctrl
+    400142: joint9_Ctrl_group
+    400144: joint9_null
+    400146: nurbsCircle2_Ctrl_Ctrl_group
+    400148: nurbsCircle2_Ctrl_null
+    400150: nurbsCircle2_null
+    400152: nurbsCircle2_null1
+    400154: pCube6
+    2100000: lambert2
+    4300000: pCube6
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: pCube6
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
